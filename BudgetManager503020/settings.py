@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     'Budget_Manager',
 ]
 
+# Custom User Model
+AUTH_USER_MODEL = 'Budget_Manager.User' 
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',  # Ensure this is correctly spelled
