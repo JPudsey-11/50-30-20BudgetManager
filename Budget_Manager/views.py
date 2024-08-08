@@ -1,10 +1,14 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required
+# views.py
+from django.shortcuts import render, redirect
 from .models import Income, Expense
 from .forms import IncomeForm, ExpenseForm
 
+def dashboard(request):
+    incomes = Income.objects.filter(user=request.user)
+    expenses = Expense.objects.filter(user=request.user)
+    
     if request.method == 'POST':
-        if 'add_income' in request.POST:
+        if 'income_submit' in request.POST:
             income_form = IncomeForm(request.POST)
             if income_form.is_valid():
                 income = Income(
@@ -16,7 +20,7 @@ from .forms import IncomeForm, ExpenseForm
                 )
                 income.save()
                 return redirect('dashboard')
-        elif 'add_expense' in request.POST:
+        elif 'expense_submit' in request.POST:
             expense_form = ExpenseForm(request.POST)
             if expense_form.is_valid():
                 expense = Expense(
@@ -28,7 +32,7 @@ from .forms import IncomeForm, ExpenseForm
                     date=expense_form.cleaned_data['date']
                 )
                 expense.save()
-                        return redirect('dashboard')
+                return redirect('dashboard')
     else:
         income_form = IncomeForm()
         expense_form = ExpenseForm()
@@ -39,4 +43,5 @@ from .forms import IncomeForm, ExpenseForm
         'income_form': income_form,
         'expense_form': expense_form,
     }
+
     return render(request, 'budget/dashboard.html', context)
