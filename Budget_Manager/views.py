@@ -1,4 +1,3 @@
-# views.py
 from django.shortcuts import render, redirect
 from .models import Income, Expense
 from .forms import IncomeForm, ExpenseForm

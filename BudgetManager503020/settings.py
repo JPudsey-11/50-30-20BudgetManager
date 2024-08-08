@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'Budget_Manager',
 ]
 
-# Custom User Model
 AUTH_USER_MODEL = 'Budget_Manager.User' 
 
 MIDDLEWARE = [
