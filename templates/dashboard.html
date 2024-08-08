@@ -10,7 +10,7 @@
                     <th>Source</th>
                     <th>Planned Amount</th>
                     <th>Received Amount</th>
-                    <th>x</th>
+                    <th>Date</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,4 +26,32 @@
         </table>
         <a href="{% url 'add_income' %}" class="btn">Add Income</a>
     </div>
+
+    <div>
+        <h3>Expense List</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Planned Amount</th>
+                    <th>Spent Amount</th>
+                    <th>Category</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for expense in expenses %}
+                <tr>
+                    <td>{{ expense.description }}</td>
+                    <td>{{ expense.planned_amount }}</td>
+                    <td>{{ expense.spent_amount }}</td>
+                    <td>{{ expense.category }}</td>
+                    <td>{{ expense.date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'add_expense' %}" class="btn">Add Expense</a>
+    </div>
 </div>
+{% endblock %}
