@@ -30,9 +30,12 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'fallback-secret-key-if-not-set')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.gitpod.io',
-                '.herokuapp.com',
-                '8000-jpudsey11-503020budgetm-fjq7u6l7j0g.ws.codeinstitute-ide.net']
+ALLOWED_HOSTS = [
+    '.gitpod.io',
+    '.herokuapp.com',
+    '8000-jpudsey11-503020budgetm-fjq7u6l7j0g.ws.codeinstitute-ide.net',
+    'budgetmanager-50-30-20-82c8070c76df.herokuapp.com',  # Add your Heroku app's URL without the trailing slash
+]
 
 # Application definition
 
@@ -134,7 +137,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Ensure these lines are added for Heroku deployment
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 CSRF_TRUSTED_ORIGINS = [
-    'https://your-heroku-app-name.herokuapp.com',
+    'https://budgetmanager-50-30-20-82c8070c76df.herokuapp.com',  # Corrected this line without trailing slash
 ]
 
 # Add authentication redirect settings
