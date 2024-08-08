@@ -1,8 +1,4 @@
-from django.shortcuts import render
-from django.views.generic import TemplateView
-
-class HomePage(TemplateView):
-    """
-    Displays home page
-    """
-    template_name = 'index.html'
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from .models import Income, Expense
+from .forms import IncomeForm, ExpenseForm
