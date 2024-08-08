@@ -6,3 +6,13 @@ class IncomeForm(forms.Form):
     received_amount = forms.DecimalField()
     date = forms.DateField()
 
+class ExpenseForm(forms.Form):
+    description = forms.CharField()
+    planned_amount = forms.DecimalField()
+    spent_amount = forms.DecimalField()
+    category = forms.ChoiceField(choices=[
+        ('Fundamentals', 'Fundamentals'),
+        ('Fun', 'Fun'),
+        ('Future You', 'Future You'),
+    ])
+    date = forms.DateField()
