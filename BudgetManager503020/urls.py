@@ -19,5 +19,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('Budget_Manager.urls')),  # Change 'my_app' to 'Budget_Manager'
+    path('', include('Budget_Manager.urls')),
 ]
