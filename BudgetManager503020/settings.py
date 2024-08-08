@@ -28,9 +28,11 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get('SECRET_KEY', 'fallback-secret-key-if-not-set')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['.gitpod.io', '.herokuapp.com']
+ALLOWED_HOSTS = ['.gitpod.io',
+                '.herokuapp.com',
+                '8000-jpudsey11-503020budgetm-fjq7u6l7j0g.ws.codeinstitute-ide.net']
 
 # Application definition
 
@@ -46,7 +48,7 @@ INSTALLED_APPS = [
     'Budget_Manager',
 ]
 
-AUTH_USER_MODEL = 'Budget_Manager.User' 
+AUTH_USER_MODEL = 'Budget_Manager.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -60,7 +62,6 @@ MIDDLEWARE = [
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 
 ROOT_URLCONF = 'BudgetManager503020.urls'
 
@@ -135,3 +136,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 CSRF_TRUSTED_ORIGINS = [
     'https://your-heroku-app-name.herokuapp.com',
 ]
+
+# Add authentication redirect settings
+LOGIN_REDIRECT_URL = 'home'  # Redirect to 'home' after login
+LOGOUT_REDIRECT_URL = 'home'  # Redirect to 'home' after logout
