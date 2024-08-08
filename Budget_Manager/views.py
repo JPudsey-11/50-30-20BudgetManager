@@ -28,3 +28,15 @@ from .forms import IncomeForm, ExpenseForm
                     date=expense_form.cleaned_data['date']
                 )
                 expense.save()
+                        return redirect('dashboard')
+    else:
+        income_form = IncomeForm()
+        expense_form = ExpenseForm()
+
+    context = {
+        'incomes': incomes,
+        'expenses': expenses,
+        'income_form': income_form,
+        'expense_form': expense_form,
+    }
+    return render(request, 'budget/dashboard.html', context)
