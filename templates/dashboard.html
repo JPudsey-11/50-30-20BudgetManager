@@ -10,8 +10,20 @@
                     <th>Source</th>
                     <th>Planned Amount</th>
                     <th>Received Amount</th>
-                    <th>Date</th>
+                    <th>x</th>
                 </tr>
             </thead>
+            <tbody>
+                {% for income in incomes %}
+                <tr>
+                    <td>{{ income.source }}</td>
+                    <td>{{ income.planned_amount }}</td>
+                    <td>{{ income.received_amount }}</td>
+                    <td>{{ income.date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'add_income' %}" class="btn">Add Income</a>
     </div>
 </div>
