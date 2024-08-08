@@ -16,3 +16,15 @@ from .forms import IncomeForm, ExpenseForm
                 )
                 income.save()
                 return redirect('dashboard')
+        elif 'add_expense' in request.POST:
+            expense_form = ExpenseForm(request.POST)
+            if expense_form.is_valid():
+                expense = Expense(
+                    user=request.user,
+                    description=expense_form.cleaned_data['description'],
+                    planned_amount=expense_form.cleaned_data['planned_amount'],
+                    spent_amount=expense_form.cleaned_data['spent_amount'],
+                    category=expense_form.cleaned_data['category'],
+                    date=expense_form.cleaned_data['date']
+                )
+                expense.save()
