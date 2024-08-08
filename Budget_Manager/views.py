@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
 from .models import Income, Expense
 from .forms import IncomeForm, ExpenseForm
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def dashboard(request):
+    # Fetch user's incomes and expenses
     incomes = Income.objects.filter(user=request.user)
     expenses = Expense.objects.filter(user=request.user)
     
@@ -10,6 +13,7 @@ def dashboard(request):
         if 'income_submit' in request.POST:
             income_form = IncomeForm(request.POST)
             if income_form.is_valid():
+                # Create a new Income instance from form data
                 income = Income(
                     user=request.user,
                     source=income_form.cleaned_data['source'],
@@ -22,6 +26,7 @@ def dashboard(request):
         elif 'expense_submit' in request.POST:
             expense_form = ExpenseForm(request.POST)
             if expense_form.is_valid():
+                # Create a new Expense instance from form data
                 expense = Expense(
                     user=request.user,
                     description=expense_form.cleaned_data['description'],
@@ -36,6 +41,7 @@ def dashboard(request):
         income_form = IncomeForm()
         expense_form = ExpenseForm()
 
+    # Context dictionary to pass data to the template
     context = {
         'incomes': incomes,
         'expenses': expenses,
@@ -43,4 +49,4 @@ def dashboard(request):
         'expense_form': expense_form,
     }
 
-    return render(request, 'budget/dashboard.html', context)
+    return render(request, 'dashboard.html', context)
