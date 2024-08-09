@@ -1,21 +1,23 @@
-(function(){
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Materialize CSS modals
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems);
 
-    // Existing code for handling categories
-    document.querySelector('#categoryInput').addEventListener('keydown', function(e){
-        if (e.keyCode != 13){
+    // Handle category input and deletion
+    document.querySelector('#categoryInput').addEventListener('keydown', function(e) {
+        if (e.keyCode != 13) {
             return;
         }
 
         e.preventDefault();
 
         var categoryName = this.value;
-
         this.value = '';
         addNewCategory(categoryName);
         updateCategoriesString();
     });
 
-    function addNewCategory(name){
+    function addNewCategory(name) {
         const html = `<li class="category">
             <span class="name">${name}</span>
             <span onclick="removeCategory(this)" class="btnRemove bold">X</span>
@@ -23,10 +25,10 @@
         document.querySelector('#categoriesContainer').insertAdjacentHTML('beforeend', html);
     }
 
-    function fetchCategoryArray(){
+    function fetchCategoryArray() {
         var categories = [];
 
-        document.querySelectorAll('.category').forEach(function(e){
+        document.querySelectorAll('.category').forEach(function(e) {
             var name = e.querySelector('.name').innerHTML;
             if (name === '') return;
 
@@ -35,18 +37,18 @@
 
         return categories;
     }
-    
-    function updateCategoriesString(){
+
+    function updateCategoriesString() {
         categories = fetchCategoryArray();
         document.querySelector('input[name="categoriesString"]').value = categories.join(',');
     }
 
-    function removeCategory(e){
+    function removeCategory(e) {
         e.parentElement.remove();
         updateCategoriesString();
     }
 
-    // New code for handling deletion of income and expenses
+    // Handle income deletion
     document.querySelectorAll('.delete-income').forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
@@ -69,6 +71,7 @@
         });
     });
 
+    // Handle expense deletion
     document.querySelectorAll('.delete-expense').forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
@@ -105,5 +108,4 @@
         }
         return cookieValue;
     }
-
-})();
+});
