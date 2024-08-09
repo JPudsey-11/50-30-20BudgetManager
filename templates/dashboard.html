@@ -20,7 +20,7 @@
                     <td>{{ income.planned_amount }}</td>
                     <td>{{ income.received_amount }}</td>
                     <td>
-                        <button class="btn red" onclick="deleteIncome({{ income.id }})">X</button>
+                        <button class="btn red" onclick="deleteIncome('{{ income.id }}')">X</button>
                     </td>
                 </tr>
                 {% endfor %}
@@ -47,7 +47,7 @@
                     <td>{{ expense.planned_amount }}</td>
                     <td>{{ expense.spent_amount }}</td>
                     <td>
-                        <button class="btn red" onclick="deleteExpense({{ expense.id }})">X</button>
+                        <button class="btn red" onclick="deleteExpense('{{ expense.id }}')">X</button>
                     </td>
                 </tr>
                 {% endfor %}
@@ -80,5 +80,45 @@
         </form>
     </div>
 </div>
+
+<script>
+    function deleteIncome(incomeId) {
+        if (confirm("Are you sure you want to delete this income?")) {
+            fetch(`/delete_income/${incomeId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById(`income-${incomeId}`).remove();
+                } else {
+                    alert("Failed to delete income.");
+                }
+            });
+        }
+    }
+
+    function deleteExpense(expenseId) {
+        if (confirm("Are you sure you want to delete this expense?")) {
+            fetch(`/delete_expense/${expenseId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById(`expense-${expenseId}`).remove();
+                } else {
+                    alert("Failed to delete expense.");
+                }
+            });
+        }
+    }
+</script>
 
 {% endblock %}
