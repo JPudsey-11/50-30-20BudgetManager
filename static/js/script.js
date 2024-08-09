@@ -1,5 +1,6 @@
 (function(){
 
+    // Existing code for handling categories
     document.querySelector('#categoryInput').addEventListener('keydown', function(e){
         if (e.keyCode != 13){
             return;
@@ -39,11 +40,70 @@
         categories = fetchCategoryArray();
         document.querySelector('input[name="categoriesString"]').value = categories.join(',');
     }
-        
-    
-})();
 
-function removeCategory(e){
-    e.parentElement.remove();
-    updateCategoriesString();
-} 
+    function removeCategory(e){
+        e.parentElement.remove();
+        updateCategoriesString();
+    }
+
+    // New code for handling deletion of income and expenses
+    document.querySelectorAll('.delete-income').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const incomeId = this.getAttribute('data-id');
+
+            fetch(`/delete_income/${incomeId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    this.parentElement.parentElement.remove();
+                } else {
+                    console.error('Failed to delete income');
+                }
+            });
+        });
+    });
+
+    document.querySelectorAll('.delete-expense').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const expenseId = this.getAttribute('data-id');
+
+            fetch(`/delete_expense/${expenseId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    this.parentElement.parentElement.remove();
+                } else {
+                    console.error('Failed to delete expense');
+                }
+            });
+        });
+    });
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+})();
