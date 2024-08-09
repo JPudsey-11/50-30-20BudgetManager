@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load static %}
 
 {% block content %}
 <div class="container">
@@ -7,7 +6,8 @@
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Login</button>
+        <button type="submit" class="btn btn-primary">Login</button>
     </form>
+    <p>Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>
 </div>
 {% endblock %}
