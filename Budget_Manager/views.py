@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from .models import Income, Expense
 from .forms import IncomeForm, ExpenseForm
 from django.contrib.auth.decorators import login_required
@@ -72,3 +73,21 @@ def add_expense(request):
     else:
         form = ExpenseForm()
     return render(request, 'add_expense.html', {'form': form})
+
+@login_required
+def delete_income(request, income_id):
+    try:
+        income = Income.objects.get(id=income_id, user=request.user)
+        income.delete()
+        return JsonResponse({'success': True})
+    except Income.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Income not found.'})
+
+@login_required
+def delete_expense(request, expense_id):
+    try:
+        expense = Expense.objects.get(id=expense_id, user=request.user)
+        expense.delete()
+        return JsonResponse({'success': True})
+    except Expense.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Expense not found.'})
