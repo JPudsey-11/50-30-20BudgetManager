@@ -2,6 +2,7 @@
 {% block content %}
 <div class="container">
     <h2>Dashboard</h2>
+    <p><a href="{% url 'logout' %}">Log Out</a></p> <!-- Log out link -->
     <div>
         <h3>Income List</h3>
         <table class="table">
@@ -119,6 +120,12 @@
             });
         }
     }
+
+    // Initialize modals
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.modal');
+        var instances = M.Modal.init(elems);
+    });
 </script>
 
 {% endblock %}
