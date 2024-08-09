@@ -10,21 +10,23 @@
                     <th>Source</th>
                     <th>Planned Amount</th>
                     <th>Received Amount</th>
-                    <th>Date</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 {% for income in incomes %}
-                <tr>
+                <tr id="income-{{ income.id }}">
                     <td>{{ income.source }}</td>
                     <td>{{ income.planned_amount }}</td>
                     <td>{{ income.received_amount }}</td>
-                    <td>{{ income.date }}</td>
+                    <td>
+                        <button class="btn red" onclick="deleteIncome({{ income.id }})">X</button>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-        <a href="{% url 'add_income' %}" class="btn">Add Income</a>
+        <button data-target="addIncomeModal" class="btn modal-trigger">Add Income</button>
     </div>
 
     <div>
@@ -35,23 +37,48 @@
                     <th>Description</th>
                     <th>Planned Amount</th>
                     <th>Spent Amount</th>
-                    <th>Category</th>
-                    <th>Date</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 {% for expense in expenses %}
-                <tr>
+                <tr id="expense-{{ expense.id }}">
                     <td>{{ expense.description }}</td>
                     <td>{{ expense.planned_amount }}</td>
                     <td>{{ expense.spent_amount }}</td>
-                    <td>{{ expense.category }}</td>
-                    <td>{{ expense.date }}</td>
+                    <td>
+                        <button class="btn red" onclick="deleteExpense({{ expense.id }})">X</button>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-        <a href="{% url 'add_expense' %}" class="btn">Add Expense</a>
+        <button data-target="addExpenseModal" class="btn modal-trigger">Add Expense</button>
     </div>
 </div>
+
+<!-- Add Income Modal -->
+<div id="addIncomeModal" class="modal">
+    <div class="modal-content">
+        <h4>Add Income</h4>
+        <form method="POST" action="{% url 'add_income' %}">
+            {% csrf_token %}
+            {{ income_form.as_p }}
+            <button type="submit" class="btn">Add Income</button>
+        </form>
+    </div>
+</div>
+
+<!-- Add Expense Modal -->
+<div id="addExpenseModal" class="modal">
+    <div class="modal-content">
+        <h4>Add Expense</h4>
+        <form method="POST" action="{% url 'add_expense' %}">
+            {% csrf_token %}
+            {{ expense_form.as_p }}
+            <button type="submit" class="btn">Add Expense</button>
+        </form>
+    </div>
+</div>
+
 {% endblock %}
