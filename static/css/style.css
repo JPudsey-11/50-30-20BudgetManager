@@ -7,10 +7,6 @@ html {
     background-color: #e0e0e0;
 }
 
-h1 {
-    color: red; /* Keeping your original style */
-}
-
 .bold {
     font-weight: bold;
 }
