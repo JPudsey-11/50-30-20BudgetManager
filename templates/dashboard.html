@@ -1,158 +1,160 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container">
+<div class="header-container">
     <h2>Dashboard</h2>
     <p><a href="{% url 'logout' %}">Log Out</a></p> <!-- Log out link -->
+</div>
 
-    <div class="row">
-        <!-- Sidebar Section -->
-        <div class="col s12 m4">
-            <div class="card-panel teal">
-                <h5>Summary</h5>
-                <p><strong>Total Income:</strong> ${{ total_income }}</p>
-
-                <h6>Planned Expenses</h6>
-                <p>Fundamentals: ${{ planned_fundamentals }} ({{ fundamentals_percentage }}%)</p>
-                <p>Fun: ${{ planned_fun }} ({{ fun_percentage }}%)</p>
-                <p>Future You: ${{ planned_future_you }} ({{ future_you_percentage }}%)</p>
-
-                <h6>Spent Expenses</h6>
-                <p>Fundamentals: ${{ spent_fundamentals }} ({{ spent_fundamentals_percentage }}%)</p>
-                <p>Fun: ${{ spent_fun }} ({{ spent_fun_percentage }}%)</p>
-                <p>Future You: ${{ spent_future_you }} ({{ spent_future_you_percentage }}%)</p>
-
-                <h6>Remaining Balance</h6>
-                <p>${{ remaining_balance }}</p>
-                <p>{{ remaining_message }}</p>
-            </div>
+<div class="main-container">
+    <div class="income-expense-section">
+        <!-- Income Section -->
+        <div>
+            <h3>Income List</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Source</th>
+                        <th>Planned Amount</th>
+                        <th>Received Amount</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for income in incomes %}
+                    <tr id="income-{{ income.id }}">
+                        <td>{{ income.source }}</td>
+                        <td>{{ income.planned_amount }}</td>
+                        <td class="{% if income.received_amount >= income.planned_amount %}green-text{% else %}red-text{% endif %}">
+                            {{ income.received_amount }}
+                        </td>
+                        <td>
+                            <button class="btn red" onclick="deleteIncome('{{ income.id }}')">X</button>
+                            <button class="btn blue" onclick="editIncome('{{ income.id }}')">Edit</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button data-target="addIncomeModal" class="btn modal-trigger">Add Income</button>
         </div>
 
-        <!-- Main Content Section -->
-        <div class="col s12 m8">
-            <!-- Income Section -->
-            <div>
-                <h3>Income List</h3>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Source</th>
-                            <th>Planned Amount</th>
-                            <th>Received Amount</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for income in incomes %}
-                        <tr id="income-{{ income.id }}">
-                            <td>{{ income.source }}</td>
-                            <td>{{ income.planned_amount }}</td>
-                            <td class="{% if income.received_amount >= income.planned_amount %}green-text{% else %}red-text{% endif %}">
-                                {{ income.received_amount }}
-                            </td>
-                            <td>
-                                <button class="btn red" onclick="deleteIncome('{{ income.id }}')">X</button>
-                                <button class="btn blue" onclick="editIncome('{{ income.id }}')">Edit</button>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                <button data-target="addIncomeModal" class="btn modal-trigger">Add Income</button>
-            </div>
-
-            <!-- Fundamentals Expenses Section -->
-            <div>
-                <h3>Fundamentals Expenses</h3>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Description</th>
-                            <th>Planned Amount</th>
-                            <th>Spent Amount</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for expense in fundamentals_expenses %}
-                        <tr id="expense-{{ expense.id }}">
-                            <td>{{ expense.description }}</td>
-                            <td>{{ expense.planned_amount }}</td>
-                            <td class="{% if expense.spent_amount <= expense.planned_amount %}green-text{% else %}red-text{% endif %}">
-                                {{ expense.spent_amount }}
-                            </td>
-                            <td>
-                                <button class="btn red" onclick="deleteExpense('{{ expense.id }}')">X</button>
-                                <button class="btn blue" onclick="editExpense('{{ expense.id }}')">Edit</button>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                <button data-target="addExpenseModal" class="btn modal-trigger" onclick="setCategory('Fundamentals')">Add Expense</button>
-            </div>
-
-            <!-- Fun Expenses Section -->
-            <div>
-                <h3>Fun Expenses</h3>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Description</th>
-                            <th>Planned Amount</th>
-                            <th>Spent Amount</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for expense in fun_expenses %}
-                        <tr id="expense-{{ expense.id }}">
-                            <td>{{ expense.description }}</td>
-                            <td>{{ expense.planned_amount }}</td>
-                            <td class="{% if expense.spent_amount <= expense.planned_amount %}green-text{% else %}red-text{% endif %}">
-                                {{ expense.spent_amount }}
-                            </td>
-                            <td>
-                                <button class="btn red" onclick="deleteExpense('{{ expense.id }}')">X</button>
-                                <button class="btn blue" onclick="editExpense('{{ expense.id }}')">Edit</button>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                <button data-target="addExpenseModal" class="btn modal-trigger" onclick="setCategory('Fun')">Add Expense</button>
-            </div>
-
-            <!-- Future You Expenses Section -->
-            <div>
-                <h3>Future You Expenses</h3>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Description</th>
-                            <th>Planned Amount</th>
-                            <th>Spent Amount</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for expense in future_you_expenses %}
-                        <tr id="expense-{{ expense.id }}">
-                            <td>{{ expense.description }}</td>
-                            <td>{{ expense.planned_amount }}</td>
-                            <td class="{% if expense.spent_amount <= expense.planned_amount %}green-text{% else %}red-text{% endif %}">
-                                {{ expense.spent_amount }}
-                            </td>
-                            <td>
-                                <button class="btn red" onclick="deleteExpense('{{ expense.id }}')">X</button>
-                                <button class="btn blue" onclick="editExpense('{{ expense.id }}')">Edit</button>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                <button data-target="addExpenseModal" class="btn modal-trigger" onclick="setCategory('Future You')">Add Expense</button>
-            </div>
+        <!-- Fundamentals Expenses Section -->
+        <div>
+            <h3>Fundamentals Expenses</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Planned Amount</th>
+                        <th>Spent Amount</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for expense in fundamentals_expenses %}
+                    <tr id="expense-{{ expense.id }}">
+                        <td>{{ expense.description }}</td>
+                        <td>{{ expense.planned_amount }}</td>
+                        <td class="{% if expense.spent_amount <= expense.planned_amount %}green-text{% else %}red-text{% endif %}">
+                            {{ expense.spent_amount }}
+                        </td>
+                        <td>
+                            <button class="btn red" onclick="deleteExpense('{{ expense.id }}')">X</button>
+                            <button class="btn blue" onclick="editExpense('{{ expense.id }}')">Edit</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button data-target="addExpenseModal" class="btn modal-trigger" onclick="setCategory('Fundamentals')">Add Expense</button>
         </div>
+
+        <!-- Fun Expenses Section -->
+        <div>
+            <h3>Fun Expenses</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Planned Amount</th>
+                        <th>Spent Amount</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for expense in fun_expenses %}
+                    <tr id="expense-{{ expense.id }}">
+                        <td>{{ expense.description }}</td>
+                        <td>{{ expense.planned_amount }}</td>
+                        <td class="{% if expense.spent_amount <= expense.planned_amount %}green-text{% else %}red-text{% endif %}">
+                            {{ expense.spent_amount }}
+                        </td>
+                        <td>
+                            <button class="btn red" onclick="deleteExpense('{{ expense.id }}')">X</button>
+                            <button class="btn blue" onclick="editExpense('{{ expense.id }}')">Edit</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button data-target="addExpenseModal" class="btn modal-trigger" onclick="setCategory('Fun')">Add Expense</button>
+        </div>
+
+        <!-- Future You Expenses Section -->
+        <div>
+            <h3>Future You Expenses</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Planned Amount</th>
+                        <th>Spent Amount</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for expense in future_you_expenses %}
+                    <tr id="expense-{{ expense.id }}">
+                        <td>{{ expense.description }}</td>
+                        <td>{{ expense.planned_amount }}</td>
+                        <td class="{% if expense.spent_amount <= expense.planned_amount %}green-text{% else %}red-text{% endif %}">
+                            {{ expense.spent_amount }}
+                        </td>
+                        <td>
+                            <button class="btn red" onclick="deleteExpense('{{ expense.id }}')">X</button>
+                            <button class="btn blue" onclick="editExpense('{{ expense.id }}')">Edit</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button data-target="addExpenseModal" class="btn modal-trigger" onclick="setCategory('Future You')">Add Expense</button>
+        </div>
+    </div>
+
+    <!-- Summary Sidebar Section -->
+    <div class="sidebar-section">
+        <h4>Summary</h4>
+        <p>Total Income: {{ total_income|floatformat:2 }}</p>
+        <h5>Planned Expenses</h5>
+        <p>Fundamentals: {{ planned_fundamentals|floatformat:2 }} ({{ fundamentals_percentage|floatformat:2 }}%)</p>
+        <p>Fun: {{ planned_fun|floatformat:2 }} ({{ fun_percentage|floatformat:2 }}%)</p>
+        <p>Future You: {{ planned_future_you|floatformat:2 }} ({{ future_you_percentage|floatformat:2 }}%)</p>
+
+        <h5>Spent Expenses</h5>
+        <p>Fundamentals: {{ spent_fundamentals|floatformat:2 }}</p>
+        <p>Fun: {{ spent_fun|floatformat:2 }}</p>
+        <p>Future You: {{ spent_future_you|floatformat:2 }}</p>
+
+        <h5>Remaining Balance</h5>
+        <p>{{ remaining_amount|floatformat:2 }}</p>
+        {% if remaining_amount > 0 %}
+        <p>Congrats! You have some money remaining. Why not dedicate this to future you?</p>
+        {% elif remaining_amount < 0 %}
+        <p>Oh no! You've gone over your limit this month. Try spending less next month or earn more.</p>
+        {% else %}
+        <p>Phew, you've made it!</p>
+        {% endif %}
     </div>
 </div>
 
@@ -160,7 +162,7 @@
 <div id="addIncomeModal" class="modal">
     <div class="modal-content">
         <h4>Add Income</h4>
-        <form method="POST" action="{% url 'dashboard' %}" id="incomeForm">
+        <form method="POST" action="{% url 'add_income' %}" id="incomeForm">
             {% csrf_token %}
             {{ income_form.as_p }}
             <button type="submit" class="btn">Add Income</button>
@@ -172,7 +174,7 @@
 <div id="addExpenseModal" class="modal">
     <div class="modal-content">
         <h4>Add Expense</h4>
-        <form method="POST" action="{% url 'dashboard' %}" id="expenseForm">
+        <form method="POST" action="{% url 'add_expense' %}" id="expenseForm">
             {% csrf_token %}
             <input type="hidden" id="categoryInput" name="category" value="">
             {{ expense_form.description }}
