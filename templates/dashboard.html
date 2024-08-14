@@ -2,9 +2,8 @@
 {% block content %}
 <div class="container">
     <h2>Dashboard</h2>
-    <p><a href="{% url 'logout' %}">Log Out</a></p> <!-- Log out link -->
+    <p><a href="{% url 'logout' %}">Log Out</a></p>
 
-    <!-- Income Section -->
     <div>
         <h3>Income List</h3>
         <table class="table">
@@ -32,26 +31,25 @@
         <button data-target="addIncomeModal" class="btn modal-trigger">Add Income</button>
     </div>
 
-    <!-- Expense Section -->
     <div>
         <h3>Expense List</h3>
+
+        <h4>Fundamentals</h4>
         <table class="table">
             <thead>
                 <tr>
                     <th>Description</th>
                     <th>Planned Amount</th>
                     <th>Spent Amount</th>
-                    <th>Category</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                {% for expense in expenses %}
+                {% for expense in fundamentals_expenses %}
                 <tr id="expense-{{ expense.id }}">
                     <td>{{ expense.description }}</td>
                     <td>{{ expense.planned_amount }}</td>
                     <td>{{ expense.spent_amount }}</td>
-                    <td>{{ expense.category }}</td>
                     <td>
                         <button class="btn red" onclick="deleteExpense('{{ expense.id }}')">X</button>
                     </td>
@@ -59,6 +57,55 @@
                 {% endfor %}
             </tbody>
         </table>
+
+        <h4>Fun</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Planned Amount</th>
+                    <th>Spent Amount</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for expense in fun_expenses %}
+                <tr id="expense-{{ expense.id }}">
+                    <td>{{ expense.description }}</td>
+                    <td>{{ expense.planned_amount }}</td>
+                    <td>{{ expense.spent_amount }}</td>
+                    <td>
+                        <button class="btn red" onclick="deleteExpense('{{ expense.id }}')">X</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h4>Future You</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Planned Amount</th>
+                    <th>Spent Amount</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for expense in future_you_expenses %}
+                <tr id="expense-{{ expense.id }}">
+                    <td>{{ expense.description }}</td>
+                    <td>{{ expense.planned_amount }}</td>
+                    <td>{{ expense.spent_amount }}</td>
+                    <td>
+                        <button class="btn red" onclick="deleteExpense('{{ expense.id }}')">X</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
         <button data-target="addExpenseModal" class="btn modal-trigger">Add Expense</button>
     </div>
 </div>
