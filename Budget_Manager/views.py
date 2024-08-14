@@ -12,8 +12,24 @@ def dashboard(request):
     incomes = Income.objects.filter(user=request.user)
     expenses = Expense.objects.filter(user=request.user)
 
-    income_form = IncomeForm()
-    expense_form = ExpenseForm()
+    if request.method == 'POST':
+        if 'income_submit' in request.POST:
+            income_form = IncomeForm(request.POST)
+            if income_form.is_valid():
+                income = income_form.save(commit=False)
+                income.user = request.user
+                income.save()
+                return redirect('dashboard')
+        elif 'expense_submit' in request.POST:
+            expense_form = ExpenseForm(request.POST)
+            if expense_form.is_valid():
+                expense = expense_form.save(commit=False)
+                expense.user = request.user
+                expense.save()
+                return redirect('dashboard')
+    else:
+        income_form = IncomeForm()
+        expense_form = ExpenseForm()
 
     context = {
         'incomes': incomes,
