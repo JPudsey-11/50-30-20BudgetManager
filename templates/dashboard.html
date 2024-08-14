@@ -45,7 +45,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for expense in fundamentals %}
+                {% for expense in fundamentals_expenses %}
                 <tr id="expense-{{ expense.id }}">
                     <td>{{ expense.description }}</td>
                     <td>{{ expense.planned_amount }}</td>
@@ -73,7 +73,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for expense in fun %}
+                {% for expense in fun_expenses %}
                 <tr id="expense-{{ expense.id }}">
                     <td>{{ expense.description }}</td>
                     <td>{{ expense.planned_amount }}</td>
@@ -101,7 +101,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for expense in future_you %}
+                {% for expense in future_you_expenses %}
                 <tr id="expense-{{ expense.id }}">
                     <td>{{ expense.description }}</td>
                     <td>{{ expense.planned_amount }}</td>
