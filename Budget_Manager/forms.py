@@ -1,18 +1,12 @@
 from django import forms
+from .models import Income, Expense
 
-class IncomeForm(forms.Form):
-    source = forms.CharField()
-    planned_amount = forms.DecimalField()
-    received_amount = forms.DecimalField()
-    date = forms.DateField()
+class IncomeForm(forms.ModelForm):
+    class Meta:
+        model = Income
+        fields = ['source', 'planned_amount', 'received_amount']
 
-class ExpenseForm(forms.Form):
-    description = forms.CharField()
-    planned_amount = forms.DecimalField()
-    spent_amount = forms.DecimalField()
-    category = forms.ChoiceField(choices=[
-        ('Fundamentals', 'Fundamentals'),
-        ('Fun', 'Fun'),
-        ('Future You', 'Future You'),
-    ])
-    date = forms.DateField()
+class ExpenseForm(forms.ModelForm):
+    class Meta:
+        model = Expense
+        fields = ['description', 'planned_amount', 'spent_amount', 'category']
