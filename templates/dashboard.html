@@ -3,6 +3,8 @@
 <div class="container">
     <h2>Dashboard</h2>
     <p><a href="{% url 'logout' %}">Log Out</a></p> <!-- Log out link -->
+
+    <!-- Income Section -->
     <div>
         <h3>Income List</h3>
         <table class="table">
@@ -30,6 +32,7 @@
         <button data-target="addIncomeModal" class="btn modal-trigger">Add Income</button>
     </div>
 
+    <!-- Expense Section -->
     <div>
         <h3>Expense List</h3>
         <table class="table">
@@ -38,6 +41,7 @@
                     <th>Description</th>
                     <th>Planned Amount</th>
                     <th>Spent Amount</th>
+                    <th>Category</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -47,6 +51,7 @@
                     <td>{{ expense.description }}</td>
                     <td>{{ expense.planned_amount }}</td>
                     <td>{{ expense.spent_amount }}</td>
+                    <td>{{ expense.category }}</td>
                     <td>
                         <button class="btn red" onclick="deleteExpense('{{ expense.id }}')">X</button>
                     </td>
