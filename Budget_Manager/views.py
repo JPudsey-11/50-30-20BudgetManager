@@ -73,6 +73,8 @@ def add_expense(request):
         if form.is_valid():
             expense = form.save(commit=False)
             expense.user = request.user
+            # Set the category manually from the hidden input in the form
+            expense.category = request.POST.get('category')
             expense.save()
             return redirect('dashboard')
     else:
