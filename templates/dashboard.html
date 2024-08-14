@@ -26,6 +26,7 @@
                     </td>
                     <td>
                         <button class="btn red" onclick="deleteIncome('{{ income.id }}')">X</button>
+                        <button class="btn blue" onclick="editIncome('{{ income.id }}')">Edit</button>
                     </td>
                 </tr>
                 {% endfor %}
@@ -56,6 +57,7 @@
                     </td>
                     <td>
                         <button class="btn red" onclick="deleteExpense('{{ expense.id }}')">X</button>
+                        <button class="btn blue" onclick="editExpense('{{ expense.id }}')">Edit</button>
                     </td>
                 </tr>
                 {% endfor %}
@@ -86,6 +88,7 @@
                     </td>
                     <td>
                         <button class="btn red" onclick="deleteExpense('{{ expense.id }}')">X</button>
+                        <button class="btn blue" onclick="editExpense('{{ expense.id }}')">Edit</button>
                     </td>
                 </tr>
                 {% endfor %}
@@ -116,6 +119,7 @@
                     </td>
                     <td>
                         <button class="btn red" onclick="deleteExpense('{{ expense.id }}')">X</button>
+                        <button class="btn blue" onclick="editExpense('{{ expense.id }}')">Edit</button>
                     </td>
                 </tr>
                 {% endfor %}
@@ -129,7 +133,7 @@
 <div id="addIncomeModal" class="modal">
     <div class="modal-content">
         <h4>Add Income</h4>
-        <form method="POST" action="{% url 'add_income' %}">
+        <form method="POST" action="{% url 'add_income' %}" id="incomeForm">
             {% csrf_token %}
             {{ income_form.as_p }}
             <button type="submit" class="btn">Add Income</button>
@@ -141,7 +145,7 @@
 <div id="addExpenseModal" class="modal">
     <div class="modal-content">
         <h4>Add Expense</h4>
-        <form method="POST" action="{% url 'add_expense' %}">
+        <form method="POST" action="{% url 'add_expense' %}" id="expenseForm">
             {% csrf_token %}
             <input type="hidden" id="categoryInput" name="category" value="">
             {{ expense_form.description }}
@@ -193,6 +197,51 @@
                 }
             });
         }
+    }
+
+    function editIncome(incomeId) {
+        fetch(`/get_income/${incomeId}/`, {
+            method: 'GET',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('id_source').value = data.income.source;
+                document.getElementById('id_planned_amount').value = data.income.planned_amount;
+                document.getElementById('id_received_amount').value = data.income.received_amount;
+                document.getElementById('incomeForm').action = `/edit_income/${incomeId}/`;
+                var instance = M.Modal.getInstance(document.getElementById('addIncomeModal'));
+                instance.open();
+            } else {
+                alert("Failed to fetch income data.");
+            }
+        });
+    }
+
+    function editExpense(expenseId) {
+        fetch(`/get_expense/${expenseId}/`, {
+            method: 'GET',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('id_description').value = data.expense.description;
+                document.getElementById('id_planned_amount').value = data.expense.planned_amount;
+                document.getElementById('id_spent_amount').value = data.expense.spent_amount;
+                document.getElementById('categoryInput').value = data.expense.category;
+                document.getElementById('expenseForm').action = `/edit_expense/${expenseId}/`;
+                var instance = M.Modal.getInstance(document.getElementById('addExpenseModal'));
+                instance.open();
+            } else {
+                alert("Failed to fetch expense data.");
+            }
+        });
     }
 
     document.addEventListener('DOMContentLoaded', function() {
