@@ -6,80 +6,63 @@ from django.views import generic
 from .models import Income, Expense
 from .forms import IncomeForm, ExpenseForm
 from django.contrib.auth.decorators import login_required
+from django.db.models import Sum
 
 @login_required
 def dashboard(request):
+    # Fetch incomes and expenses
     incomes = Income.objects.filter(user=request.user)
     fun_expenses = Expense.objects.filter(user=request.user, category='Fun')
     fundamentals_expenses = Expense.objects.filter(user=request.user, category='Fundamentals')
     future_you_expenses = Expense.objects.filter(user=request.user, category='Future You')
 
-    if request.method == 'POST':
-        if 'income_submit' in request.POST:
-            income_id = request.POST.get('income_id')
-            if income_id:
-                income = get_object_or_404(Income, id=income_id, user=request.user)
-            else:
-                income = Income(user=request.user)
+    # Calculate total income
+    total_income = incomes.aggregate(total=Sum('received_amount'))['total'] or 0
 
-            income_form = IncomeForm(request.POST, instance=income)
-            if income_form.is_valid():
-                income_form.save()
-                return redirect('dashboard')
+    # Calculate planned and spent amounts for each category
+    planned_fundamentals = fundamentals_expenses.aggregate(total=Sum('planned_amount'))['total'] or 0
+    spent_fundamentals = fundamentals_expenses.aggregate(total=Sum('spent_amount'))['total'] or 0
 
-        elif 'expense_submit' in request.POST:
-            expense_id = request.POST.get('expense_id')
-            if expense_id:
-                expense = get_object_or_404(Expense, id=expense_id, user=request.user)
-            else:
-                expense = Expense(user=request.user)
+    planned_fun = fun_expenses.aggregate(total=Sum('planned_amount'))['total'] or 0
+    spent_fun = fun_expenses.aggregate(total=Sum('spent_amount'))['total'] or 0
 
-            expense_form = ExpenseForm(request.POST, instance=expense)
-            if expense_form.is_valid():
-                expense.category = request.POST.get('category')
-                expense_form.save()
-                return redirect('dashboard')
-    else:
-        income_form = IncomeForm()
-        expense_form = ExpenseForm()
+    planned_future_you = future_you_expenses.aggregate(total=Sum('planned_amount'))['total'] or 0
+    spent_future_you = future_you_expenses.aggregate(total=Sum('spent_amount'))['total'] or 0
 
+    # Calculate remaining amount
+    total_spent = spent_fundamentals + spent_fun + spent_future_you
+    remaining_amount = total_income - total_spent
+
+    # Calculate percentages of income spent on each category
+    def calculate_percentage(amount):
+        return (amount / total_income * 100) if total_income > 0 else 0
+
+    fundamentals_percentage = calculate_percentage(spent_fundamentals)
+    fun_percentage = calculate_percentage(spent_fun)
+    future_you_percentage = calculate_percentage(spent_future_you)
+
+    # Create the context
     context = {
         'incomes': incomes,
         'fun_expenses': fun_expenses,
         'fundamentals_expenses': fundamentals_expenses,
         'future_you_expenses': future_you_expenses,
-        'income_form': income_form,
-        'expense_form': expense_form,
+        'income_form': IncomeForm(),
+        'expense_form': ExpenseForm(),
+        'total_income': total_income,
+        'planned_fundamentals': planned_fundamentals,
+        'spent_fundamentals': spent_fundamentals,
+        'planned_fun': planned_fun,
+        'spent_fun': spent_fun,
+        'planned_future_you': planned_future_you,
+        'spent_future_you': spent_future_you,
+        'remaining_amount': remaining_amount,
+        'fundamentals_percentage': fundamentals_percentage,
+        'fun_percentage': fun_percentage,
+        'future_you_percentage': future_you_percentage,
     }
 
     return render(request, 'dashboard.html', context)
-
-@login_required
-def get_income(request, income_id):
-    income = get_object_or_404(Income, id=income_id, user=request.user)
-    return JsonResponse({
-        'success': True,
-        'income': {
-            'id': income.id,
-            'source': income.source,
-            'planned_amount': str(income.planned_amount),
-            'received_amount': str(income.received_amount),
-        }
-    })
-
-@login_required
-def get_expense(request, expense_id):
-    expense = get_object_or_404(Expense, id=expense_id, user=request.user)
-    return JsonResponse({
-        'success': True,
-        'expense': {
-            'id': expense.id,
-            'description': expense.description,
-            'planned_amount': str(expense.planned_amount),
-            'spent_amount': str(expense.spent_amount),
-            'category': expense.category,
-        }
-    })
 
 @login_required
 def delete_income(request, income_id):
