@@ -21,7 +21,9 @@
                 <tr id="income-{{ income.id }}">
                     <td>{{ income.source }}</td>
                     <td>{{ income.planned_amount }}</td>
-                    <td>{{ income.received_amount }}</td>
+                    <td class="{% if income.received_amount < income.planned_amount %}red-text{% else %}green-text{% endif %}">
+                        {{ income.received_amount }}
+                    </td>
                     <td>
                         <button class="btn red" onclick="deleteIncome('{{ income.id }}')">X</button>
                     </td>
@@ -45,11 +47,13 @@
                 </tr>
             </thead>
             <tbody>
-                {% for expense in fundamentals_expenses %}
+                {% for expense in fundamentals %}
                 <tr id="expense-{{ expense.id }}">
                     <td>{{ expense.description }}</td>
                     <td>{{ expense.planned_amount }}</td>
-                    <td>{{ expense.spent_amount }}</td>
+                    <td class="{% if expense.spent_amount > expense.planned_amount %}red-text{% else %}green-text{% endif %}">
+                        {{ expense.spent_amount }}
+                    </td>
                     <td>
                         <button class="btn red" onclick="deleteExpense('{{ expense.id }}')">X</button>
                     </td>
@@ -73,11 +77,13 @@
                 </tr>
             </thead>
             <tbody>
-                {% for expense in fun_expenses %}
+                {% for expense in fun %}
                 <tr id="expense-{{ expense.id }}">
                     <td>{{ expense.description }}</td>
                     <td>{{ expense.planned_amount }}</td>
-                    <td>{{ expense.spent_amount }}</td>
+                    <td class="{% if expense.spent_amount > expense.planned_amount %}red-text{% else %}green-text{% endif %}">
+                        {{ expense.spent_amount }}
+                    </td>
                     <td>
                         <button class="btn red" onclick="deleteExpense('{{ expense.id }}')">X</button>
                     </td>
@@ -101,11 +107,13 @@
                 </tr>
             </thead>
             <tbody>
-                {% for expense in future_you_expenses %}
+                {% for expense in future_you %}
                 <tr id="expense-{{ expense.id }}">
                     <td>{{ expense.description }}</td>
                     <td>{{ expense.planned_amount }}</td>
-                    <td>{{ expense.spent_amount }}</td>
+                    <td class="{% if expense.spent_amount > expense.planned_amount %}red-text{% else %}green-text{% endif %}">
+                        {{ expense.spent_amount }}
+                    </td>
                     <td>
                         <button class="btn red" onclick="deleteExpense('{{ expense.id }}')">X</button>
                     </td>

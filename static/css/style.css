@@ -15,6 +15,17 @@ html {
     margin: 0!important;
 }
 
+/* Recieved & Planned Amount Text */
+
+.red-text {
+    color: red;
+}
+
+.green-text {
+    color: green;
+}
+
+
 /* Project List (No Projects) */
 .noproject-wrapper {
     margin-top: 250px;
