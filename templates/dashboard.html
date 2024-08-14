@@ -2,8 +2,9 @@
 {% block content %}
 <div class="container">
     <h2>Dashboard</h2>
-    <p><a href="{% url 'logout' %}">Log Out</a></p>
+    <p><a href="{% url 'logout' %}">Log Out</a></p> <!-- Log out link -->
 
+    <!-- Income List -->
     <div>
         <h3>Income List</h3>
         <table class="table">
@@ -31,10 +32,9 @@
         <button data-target="addIncomeModal" class="btn modal-trigger">Add Income</button>
     </div>
 
+    <!-- Fundamentals Expenses -->
     <div>
-        <h3>Expense List</h3>
-
-        <h4>Fundamentals</h4>
+        <h3>Fundamentals Expenses</h3>
         <table class="table">
             <thead>
                 <tr>
@@ -57,8 +57,12 @@
                 {% endfor %}
             </tbody>
         </table>
+        <button data-target="addExpenseModal" class="btn modal-trigger">Add Expense</button>
+    </div>
 
-        <h4>Fun</h4>
+    <!-- Fun Expenses -->
+    <div>
+        <h3>Fun Expenses</h3>
         <table class="table">
             <thead>
                 <tr>
@@ -81,8 +85,12 @@
                 {% endfor %}
             </tbody>
         </table>
+        <button data-target="addExpenseModal" class="btn modal-trigger">Add Expense</button>
+    </div>
 
-        <h4>Future You</h4>
+    <!-- Future You Expenses -->
+    <div>
+        <h3>Future You Expenses</h3>
         <table class="table">
             <thead>
                 <tr>
@@ -105,7 +113,6 @@
                 {% endfor %}
             </tbody>
         </table>
-
         <button data-target="addExpenseModal" class="btn modal-trigger">Add Expense</button>
     </div>
 </div>
