@@ -55,6 +55,33 @@ def dashboard(request):
     return render(request, 'dashboard.html', context)
 
 @login_required
+def get_income(request, income_id):
+    income = get_object_or_404(Income, id=income_id, user=request.user)
+    return JsonResponse({
+        'success': True,
+        'income': {
+            'id': income.id,
+            'source': income.source,
+            'planned_amount': str(income.planned_amount),
+            'received_amount': str(income.received_amount),
+        }
+    })
+
+@login_required
+def get_expense(request, expense_id):
+    expense = get_object_or_404(Expense, id=expense_id, user=request.user)
+    return JsonResponse({
+        'success': True,
+        'expense': {
+            'id': expense.id,
+            'description': expense.description,
+            'planned_amount': str(expense.planned_amount),
+            'spent_amount': str(expense.spent_amount),
+            'category': expense.category,
+        }
+    })
+
+@login_required
 def delete_income(request, income_id):
     try:
         income = Income.objects.get(id=income_id, user=request.user)

@@ -31,16 +31,25 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function(e) {
             e.preventDefault();
             const incomeId = this.getAttribute('data-id');
-            const source = this.getAttribute('data-source');
-            const plannedAmount = this.getAttribute('data-planned-amount');
-            const receivedAmount = this.getAttribute('data-received-amount');
 
-            document.getElementById('income-id').value = incomeId;
-            document.getElementById('income-source').value = source;
-            document.getElementById('income-planned-amount').value = plannedAmount;
-            document.getElementById('income-received-amount').value = receivedAmount;
-
-            M.Modal.getInstance(document.getElementById('addIncomeModal')).open();
+            fetch(`/get_income/${incomeId}/`, {
+                method: 'GET',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('income-id').value = data.income.id;
+                    document.getElementById('id_source').value = data.income.source;
+                    document.getElementById('id_planned_amount').value = data.income.planned_amount;
+                    document.getElementById('id_received_amount').value = data.income.received_amount;
+                    M.Modal.getInstance(document.getElementById('addIncomeModal')).open();
+                } else {
+                    console.error('Failed to fetch income data');
+                }
+            });
         });
     });
 
@@ -72,18 +81,26 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function(e) {
             e.preventDefault();
             const expenseId = this.getAttribute('data-id');
-            const description = this.getAttribute('data-description');
-            const plannedAmount = this.getAttribute('data-planned-amount');
-            const spentAmount = this.getAttribute('data-spent-amount');
-            const category = this.getAttribute('data-category');
 
-            document.getElementById('expense-id').value = expenseId;
-            document.getElementById('expense-description').value = description;
-            document.getElementById('expense-planned-amount').value = plannedAmount;
-            document.getElementById('expense-spent-amount').value = spentAmount;
-            document.getElementById('categoryInput').value = category;
-
-            M.Modal.getInstance(document.getElementById('addExpenseModal')).open();
+            fetch(`/get_expense/${expenseId}/`, {
+                method: 'GET',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('expense-id').value = data.expense.id;
+                    document.getElementById('id_description').value = data.expense.description;
+                    document.getElementById('id_planned_amount').value = data.expense.planned_amount;
+                    document.getElementById('id_spent_amount').value = data.expense.spent_amount;
+                    document.getElementById('categoryInput').value = data.expense.category;
+                    M.Modal.getInstance(document.getElementById('addExpenseModal')).open();
+                } else {
+                    console.error('Failed to fetch expense data');
+                }
+            });
         });
     });
 
