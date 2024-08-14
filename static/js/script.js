@@ -3,6 +3,11 @@ document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.modal');
     var instances = M.Modal.init(elems);
 
+    // Function to set the category when opening the modal
+    function setCategory(category) {
+        document.getElementById('categoryInput').value = category;
+    }
+
     // Handle category input and deletion
     document.querySelector('#categoryInput').addEventListener('keydown', function(e) {
         if (e.keyCode != 13) {
@@ -108,4 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         return cookieValue;
     }
+
+    // Expose the setCategory function to the global scope
+    window.setCategory = setCategory;
 });
