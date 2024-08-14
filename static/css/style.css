@@ -7,6 +7,23 @@ html {
     background-color: #e0e0e0;
 }
 
+.container {
+    display: flex;
+    flex-direction: row;
+}
+
+.sidebar {
+    width: 33%;
+    padding: 20px;
+    background-color: #f4f4f4;
+    margin-right: 20px;
+    border-radius: 8px;
+}
+
+.main-content {
+    width: 67%;
+}
+
 .bold {
     font-weight: bold;
 }
@@ -16,7 +33,6 @@ html {
 }
 
 /* Recieved & Planned Amount Text */
-
 .red-text {
     color: red;
 }
@@ -25,6 +41,32 @@ html {
     color: green;
 }
 
+/* Summary Section */
+.summary-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.summary-item {
+    margin-bottom: 10px;
+}
+
+.summary-percentage {
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.remaining-positive {
+    color: green;
+}
+
+.remaining-negative {
+    color: red;
+}
+
+.remaining-neutral {
+    color: #333;
+}
 
 /* Project List (No Projects) */
 .noproject-wrapper {
