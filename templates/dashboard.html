@@ -133,10 +133,11 @@
 <div id="addIncomeModal" class="modal">
     <div class="modal-content">
         <h4>Add Income</h4>
-        <form method="POST" action="{% url 'add_income' %}" id="incomeForm">
+        <form method="POST" action="{% url 'dashboard' %}" id="incomeForm">
             {% csrf_token %}
+            <input type="hidden" name="income_id" id="income-id">
             {{ income_form.as_p }}
-            <button type="submit" class="btn">Add Income</button>
+            <button type="submit" name="income_submit" class="btn">Save Income</button>
         </form>
     </div>
 </div>
@@ -145,13 +146,14 @@
 <div id="addExpenseModal" class="modal">
     <div class="modal-content">
         <h4>Add Expense</h4>
-        <form method="POST" action="{% url 'add_expense' %}" id="expenseForm">
+        <form method="POST" action="{% url 'dashboard' %}" id="expenseForm">
             {% csrf_token %}
+            <input type="hidden" name="expense_id" id="expense-id">
             <input type="hidden" id="categoryInput" name="category" value="">
             {{ expense_form.description }}
             {{ expense_form.planned_amount }}
             {{ expense_form.spent_amount }}
-            <button type="submit" class="btn">Add Expense</button>
+            <button type="submit" name="expense_submit" class="btn">Save Expense</button>
         </form>
     </div>
 </div>
@@ -209,12 +211,11 @@
         .then(response => response.json())
         .then(data => {
             if (data.success) {
+                document.getElementById('income-id').value = data.income.id;
                 document.getElementById('id_source').value = data.income.source;
                 document.getElementById('id_planned_amount').value = data.income.planned_amount;
                 document.getElementById('id_received_amount').value = data.income.received_amount;
-                document.getElementById('incomeForm').action = `/edit_income/${incomeId}/`;
-                var instance = M.Modal.getInstance(document.getElementById('addIncomeModal'));
-                instance.open();
+                M.Modal.getInstance(document.getElementById('addIncomeModal')).open();
             } else {
                 alert("Failed to fetch income data.");
             }
@@ -231,13 +232,12 @@
         .then(response => response.json())
         .then(data => {
             if (data.success) {
+                document.getElementById('expense-id').value = data.expense.id;
                 document.getElementById('id_description').value = data.expense.description;
                 document.getElementById('id_planned_amount').value = data.expense.planned_amount;
                 document.getElementById('id_spent_amount').value = data.expense.spent_amount;
                 document.getElementById('categoryInput').value = data.expense.category;
-                document.getElementById('expenseForm').action = `/edit_expense/${expenseId}/`;
-                var instance = M.Modal.getInstance(document.getElementById('addExpenseModal'));
-                instance.open();
+                M.Modal.getInstance(document.getElementById('addExpenseModal')).open();
             } else {
                 alert("Failed to fetch expense data.");
             }
