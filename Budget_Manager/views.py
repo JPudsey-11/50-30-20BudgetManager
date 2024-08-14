@@ -10,21 +10,32 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def dashboard(request):
     incomes = Income.objects.filter(user=request.user)
-    expenses = Expense.objects.filter(user=request.user)
+    fun_expenses = Expense.objects.filter(user=request.user, category='Fun')
+    fundamentals_expenses = Expense.objects.filter(user=request.user, category='Fundamentals')
+    future_you_expenses = Expense.objects.filter(user=request.user, category='Future You')
 
     if request.method == 'POST':
         if 'income_submit' in request.POST:
             income_form = IncomeForm(request.POST)
             if income_form.is_valid():
-                income = income_form.save(commit=False)
-                income.user = request.user
+                income = Income(
+                    user=request.user,
+                    source=income_form.cleaned_data['source'],
+                    planned_amount=income_form.cleaned_data['planned_amount'],
+                    received_amount=income_form.cleaned_data['received_amount'],
+                )
                 income.save()
                 return redirect('dashboard')
         elif 'expense_submit' in request.POST:
             expense_form = ExpenseForm(request.POST)
             if expense_form.is_valid():
-                expense = expense_form.save(commit=False)
-                expense.user = request.user
+                expense = Expense(
+                    user=request.user,
+                    description=expense_form.cleaned_data['description'],
+                    planned_amount=expense_form.cleaned_data['planned_amount'],
+                    spent_amount=expense_form.cleaned_data['spent_amount'],
+                    category=expense_form.cleaned_data['category'],
+                )
                 expense.save()
                 return redirect('dashboard')
     else:
@@ -33,7 +44,9 @@ def dashboard(request):
 
     context = {
         'incomes': incomes,
-        'expenses': expenses,
+        'fun_expenses': fun_expenses,
+        'fundamentals_expenses': fundamentals_expenses,
+        'future_you_expenses': future_you_expenses,
         'income_form': income_form,
         'expense_form': expense_form,
     }
@@ -49,7 +62,9 @@ def add_income(request):
             income.user = request.user
             income.save()
             return redirect('dashboard')
-    return redirect('dashboard')
+    else:
+        form = IncomeForm()
+    return render(request, 'add_income.html', {'form': form})
 
 @login_required
 def add_expense(request):
@@ -60,7 +75,9 @@ def add_expense(request):
             expense.user = request.user
             expense.save()
             return redirect('dashboard')
-    return redirect('dashboard')
+    else:
+        form = ExpenseForm()
+    return render(request, 'add_expense.html', {'form': form})
 
 @login_required
 def delete_income(request, income_id):
