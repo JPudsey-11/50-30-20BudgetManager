@@ -10,7 +10,7 @@ class Income(models.Model):
     planned_amount = models.DecimalField(max_digits=10, decimal_places=2)
     received_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     source = models.CharField(max_length=255)
-    date = models.DateField()
+    date = models.DateField(auto_now_add=True)  # Automatically set the current date
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -29,7 +29,7 @@ class Expense(models.Model):
     spent_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
     description = models.CharField(max_length=255)
-    date = models.DateField()
+    date = models.DateField(auto_now_add=True)  # Automatically set the current date
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
