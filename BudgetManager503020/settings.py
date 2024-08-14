@@ -22,7 +22,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'fallback-secret-key-if-not-set')
 
-DEBUG = True  # Change to False in production
+DEBUG = False  # Change to False in production
 
 ALLOWED_HOSTS = [
     '.gitpod.io',
