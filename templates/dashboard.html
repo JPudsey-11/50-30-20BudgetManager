@@ -4,7 +4,7 @@
     <h2>Dashboard</h2>
     <p><a href="{% url 'logout' %}">Log Out</a></p> <!-- Log out link -->
 
-    <!-- Income List -->
+    <!-- Income Section -->
     <div>
         <h3>Income List</h3>
         <table class="table">
@@ -32,7 +32,7 @@
         <button data-target="addIncomeModal" class="btn modal-trigger">Add Income</button>
     </div>
 
-    <!-- Fundamentals Expenses -->
+    <!-- Fundamentals Expenses Section -->
     <div>
         <h3>Fundamentals Expenses</h3>
         <table class="table">
@@ -45,7 +45,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for expense in fundamentals_expenses %}
+                {% for expense in fundamentals %}
                 <tr id="expense-{{ expense.id }}">
                     <td>{{ expense.description }}</td>
                     <td>{{ expense.planned_amount }}</td>
@@ -57,10 +57,10 @@
                 {% endfor %}
             </tbody>
         </table>
-        <button data-target="addExpenseModal" class="btn modal-trigger">Add Expense</button>
+        <button data-target="addExpenseModal" class="btn modal-trigger" onclick="setCategory('Fundamentals')">Add Expense</button>
     </div>
 
-    <!-- Fun Expenses -->
+    <!-- Fun Expenses Section -->
     <div>
         <h3>Fun Expenses</h3>
         <table class="table">
@@ -73,7 +73,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for expense in fun_expenses %}
+                {% for expense in fun %}
                 <tr id="expense-{{ expense.id }}">
                     <td>{{ expense.description }}</td>
                     <td>{{ expense.planned_amount }}</td>
@@ -85,10 +85,10 @@
                 {% endfor %}
             </tbody>
         </table>
-        <button data-target="addExpenseModal" class="btn modal-trigger">Add Expense</button>
+        <button data-target="addExpenseModal" class="btn modal-trigger" onclick="setCategory('Fun')">Add Expense</button>
     </div>
 
-    <!-- Future You Expenses -->
+    <!-- Future You Expenses Section -->
     <div>
         <h3>Future You Expenses</h3>
         <table class="table">
@@ -101,7 +101,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for expense in future_you_expenses %}
+                {% for expense in future_you %}
                 <tr id="expense-{{ expense.id }}">
                     <td>{{ expense.description }}</td>
                     <td>{{ expense.planned_amount }}</td>
@@ -113,7 +113,7 @@
                 {% endfor %}
             </tbody>
         </table>
-        <button data-target="addExpenseModal" class="btn modal-trigger">Add Expense</button>
+        <button data-target="addExpenseModal" class="btn modal-trigger" onclick="setCategory('Future You')">Add Expense</button>
     </div>
 </div>
 
@@ -135,13 +135,20 @@
         <h4>Add Expense</h4>
         <form method="POST" action="{% url 'add_expense' %}">
             {% csrf_token %}
-            {{ expense_form.as_p }}
+            <input type="hidden" id="categoryInput" name="category" value="">
+            {{ expense_form.description }}
+            {{ expense_form.planned_amount }}
+            {{ expense_form.spent_amount }}
             <button type="submit" class="btn">Add Expense</button>
         </form>
     </div>
 </div>
 
 <script>
+    function setCategory(category) {
+        document.getElementById('categoryInput').value = category;
+    }
+
     function deleteIncome(incomeId) {
         if (confirm("Are you sure you want to delete this income?")) {
             fetch(`/delete_income/${incomeId}/`, {
@@ -180,7 +187,6 @@
         }
     }
 
-    // Initialize modals
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.modal');
         var instances = M.Modal.init(elems);
