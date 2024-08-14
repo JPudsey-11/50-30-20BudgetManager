@@ -3,56 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.modal');
     var instances = M.Modal.init(elems);
 
-    // Function to set the category when opening the modal
-    function setCategory(category) {
-        document.getElementById('categoryInput').value = category;
-    }
-
-    // Handle category input and deletion
-    document.querySelector('#categoryInput').addEventListener('keydown', function(e) {
-        if (e.keyCode != 13) {
-            return;
-        }
-
-        e.preventDefault();
-
-        var categoryName = this.value;
-        this.value = '';
-        addNewCategory(categoryName);
-        updateCategoriesString();
-    });
-
-    function addNewCategory(name) {
-        const html = `<li class="category">
-            <span class="name">${name}</span>
-            <span onclick="removeCategory(this)" class="btnRemove bold">X</span>
-        </li>`;
-        document.querySelector('#categoriesContainer').insertAdjacentHTML('beforeend', html);
-    }
-
-    function fetchCategoryArray() {
-        var categories = [];
-
-        document.querySelectorAll('.category').forEach(function(e) {
-            var name = e.querySelector('.name').innerHTML;
-            if (name === '') return;
-
-            categories.push(name);
-        });
-
-        return categories;
-    }
-
-    function updateCategoriesString() {
-        categories = fetchCategoryArray();
-        document.querySelector('input[name="categoriesString"]').value = categories.join(',');
-    }
-
-    function removeCategory(e) {
-        e.parentElement.remove();
-        updateCategoriesString();
-    }
-
     // Handle income deletion
     document.querySelectorAll('.delete-income').forEach(button => {
         button.addEventListener('click', function(e) {
@@ -68,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    this.parentElement.parentElement.remove();
+                    document.getElementById(`income-${incomeId}`).remove();
                 } else {
                     console.error('Failed to delete income');
                 }
@@ -91,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    this.parentElement.parentElement.remove();
+                    document.getElementById(`expense-${expenseId}`).remove();
                 } else {
                     console.error('Failed to delete expense');
                 }
@@ -99,6 +49,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Function to set the category when opening the modal
+    window.setCategory = function(category) {
+        document.getElementById('categoryInput').value = category;
+    };
+
+    // Helper function to get CSRF token
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {
@@ -113,7 +69,4 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         return cookieValue;
     }
-
-    // Expose the setCategory function to the global scope
-    window.setCategory = setCategory;
 });

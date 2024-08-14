@@ -21,7 +21,7 @@
                 <tr id="income-{{ income.id }}">
                     <td>{{ income.source }}</td>
                     <td>{{ income.planned_amount }}</td>
-                    <td class="{% if income.received_amount < income.planned_amount %}red-text{% else %}green-text{% endif %}">
+                    <td class="{{ 'green-text' if income.received_amount >= income.planned_amount else 'red-text' }}">
                         {{ income.received_amount }}
                     </td>
                     <td>
@@ -47,11 +47,11 @@
                 </tr>
             </thead>
             <tbody>
-                {% for expense in fundamentals %}
+                {% for expense in fundamentals_expenses %}
                 <tr id="expense-{{ expense.id }}">
                     <td>{{ expense.description }}</td>
                     <td>{{ expense.planned_amount }}</td>
-                    <td class="{% if expense.spent_amount > expense.planned_amount %}red-text{% else %}green-text{% endif %}">
+                    <td class="{{ 'red-text' if expense.spent_amount > expense.planned_amount else 'green-text' }}">
                         {{ expense.spent_amount }}
                     </td>
                     <td>
@@ -77,11 +77,11 @@
                 </tr>
             </thead>
             <tbody>
-                {% for expense in fun %}
+                {% for expense in fun_expenses %}
                 <tr id="expense-{{ expense.id }}">
                     <td>{{ expense.description }}</td>
                     <td>{{ expense.planned_amount }}</td>
-                    <td class="{% if expense.spent_amount > expense.planned_amount %}red-text{% else %}green-text{% endif %}">
+                    <td class="{{ 'red-text' if expense.spent_amount > expense.planned_amount else 'green-text' }}">
                         {{ expense.spent_amount }}
                     </td>
                     <td>
@@ -107,11 +107,11 @@
                 </tr>
             </thead>
             <tbody>
-                {% for expense in future_you %}
+                {% for expense in future_you_expenses %}
                 <tr id="expense-{{ expense.id }}">
                     <td>{{ expense.description }}</td>
                     <td>{{ expense.planned_amount }}</td>
-                    <td class="{% if expense.spent_amount > expense.planned_amount %}red-text{% else %}green-text{% endif %}">
+                    <td class="{{ 'red-text' if expense.spent_amount > expense.planned_amount else 'green-text' }}">
                         {{ expense.spent_amount }}
                     </td>
                     <td>
@@ -153,6 +153,7 @@
 </div>
 
 <script>
+    // Function to set the category when opening the modal
     function setCategory(category) {
         document.getElementById('categoryInput').value = category;
     }
