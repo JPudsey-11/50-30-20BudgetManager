@@ -82,6 +82,33 @@ def delete_expense(request, expense_id):
     except Expense.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Expense not found.'})
 
+@login_required
+def get_income(request, income_id):
+    income = get_object_or_404(Income, id=income_id, user=request.user)
+    data = {
+        'success': True,
+        'income': {
+            'source': income.source,
+            'planned_amount': str(income.planned_amount),
+            'received_amount': str(income.received_amount),
+        }
+    }
+    return JsonResponse(data)
+
+@login_required
+def get_expense(request, expense_id):
+    expense = get_object_or_404(Expense, id=expense_id, user=request.user)
+    data = {
+        'success': True,
+        'expense': {
+            'description': expense.description,
+            'planned_amount': str(expense.planned_amount),
+            'spent_amount': str(expense.spent_amount),
+            'category': expense.category,
+        }
+    }
+    return JsonResponse(data)
+
 class SignUpView(generic.CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('login')
