@@ -15,6 +15,44 @@ document.addEventListener('DOMContentLoaded', function() {
         return cookieValue;
     }
 
+    // Existing code for modals, financial formatting, etc.
+
+    // Initialize the Doughnut Chart
+    const ctx = document.getElementById('incomeDoughnutChart').getContext('2d');
+    const incomeDoughnutChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Fundamentals', 'Fun', 'Future You'],
+            datasets: [{
+                label: 'Income Distribution',
+                data: [
+                    {{ planned_fundamentals_percentage }},
+                    {{ planned_fun_percentage }},
+                    {{ planned_future_you_percentage }}
+                ],
+                backgroundColor: ['#007AFF', '#FF3B30', '#34C759'],
+                borderColor: ['#FFFFFF'],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.label + ': ' + tooltipItem.raw + '%';
+                        }
+                    }
+                }
+            }
+        }
+    });
+});
+
     // Financial function to format numbers to two decimal places
     function financial(x) {
         return Number.parseFloat(x).toFixed(2);
