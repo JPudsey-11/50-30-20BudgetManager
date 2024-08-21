@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.urls import reverse_lazy
 from django.views import generic
 from .models import Income, Expense
-from .forms import IncomeForm, ExpenseForm, CustomUserCreationForm  # Import the custom form
+from .forms import IncomeForm, ExpenseForm, CustomUserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 
@@ -117,6 +117,9 @@ def get_expense(request, expense_id):
     return JsonResponse(data)
 
 class SignUpView(generic.CreateView):
-    form_class = CustomUserCreationForm  # Use the custom form
+    form_class = CustomUserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'registration/signup.html'
+
+def guide(request):
+    return render(request, 'guide.html')

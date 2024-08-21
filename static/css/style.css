@@ -73,7 +73,7 @@ html {
 }
 
 .tabs .tab a.active {
-    color: #36343B;
+    color: #007AFF;
     background-color: #F2F2F7;
 }
 
@@ -83,4 +83,21 @@ html {
 
 .tabs .indicator {
     background-color: #36343B;
+}
+
+/* Navbar Styles */
+.nav-wrapper {
+    background-color: #F2F2F7; /* Navbar background */
+}
+
+.nav-wrapper .brand-logo {
+    font-weight: bold;
+}
+
+.nav-wrapper .right a {
+    color: #36343B;
+}
+
+.nav-wrapper .right a.active {
+    color: #007AFF; /* Active link color */
 }
