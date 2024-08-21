@@ -1,9 +1,11 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager
 
 class User(AbstractUser):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    objects = UserManager()  # Ensuring we're using the correct manager
 
 class Income(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

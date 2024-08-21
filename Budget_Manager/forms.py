@@ -1,5 +1,6 @@
 from django import forms
-from .models import Income, Expense
+from django.contrib.auth.forms import UserCreationForm
+from .models import Income, Expense, User
 
 class IncomeForm(forms.ModelForm):
     class Meta:
@@ -11,3 +12,7 @@ class ExpenseForm(forms.ModelForm):
         model = Expense
         fields = ['description', 'planned_amount', 'spent_amount']
 
+class SignUpForm(UserCreationForm):
+    class Meta:
+        model = User  # Ensure this references your custom user model
+        fields = ('username', 'password1', 'password2')

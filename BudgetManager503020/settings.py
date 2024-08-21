@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'Budget_Manager',
 ]
 
-AUTH_USER_MODEL = 'Budget_Manager.User'
+AUTH_USER_MODEL = 'Budget_Manager.User'  # Ensure this is pointing to your custom user model
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
