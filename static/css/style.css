@@ -101,3 +101,7 @@ html {
 .nav-wrapper .right a.active {
     color: #007AFF; /* Active link color */
 }
+
+.container {
+    max-width: 1200px; /* Set the maximum width of the content */
+}
