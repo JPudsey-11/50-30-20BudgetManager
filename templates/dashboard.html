@@ -86,20 +86,74 @@
 
                 <!-- Planned Tab Content -->
                 <div id="planned-tab" class="col s12" style="color: #36343B;">
-                    <ul>
-                        <li>Fundamentals: £{{ planned_fundamentals }}</li>
-                        <li>Fun: £{{ planned_fun }}</li>
-                        <li>Future You: £{{ planned_future_you }}</li>
-                    </ul>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Expense Type</th>
+                                <th>Amount</th>
+                                <th>Percentage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Fundamentals (50%)</td>
+                                <td>£{{ planned_fundamentals }}</td>
+                                <td class="{% if fundamentals_percentage > 50 %}red-text{% else %}green-text{% endif %}">
+                                    {{ fundamentals_percentage }}%
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Fun (30%)</td>
+                                <td>£{{ planned_fun }}</td>
+                                <td class="{% if fun_percentage > 30 %}red-text{% else %}green-text{% endif %}">
+                                    {{ fun_percentage }}%
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Future You (20%)</td>
+                                <td>£{{ planned_future_you }}</td>
+                                <td class="{% if future_you_percentage > 20 %}red-text{% else %}green-text{% endif %}">
+                                    {{ future_you_percentage }}%
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
                 <!-- Spent Tab Content -->
                 <div id="spent-tab" class="col s12" style="color: #36343B;">
-                    <ul>
-                        <li>Fundamentals: £{{ spent_fundamentals }}</li>
-                        <li>Fun: £{{ spent_fun }}</li>
-                        <li>Future You: £{{ spent_future_you }}</li>
-                    </ul>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Expense Type</th>
+                                <th>Amount</th>
+                                <th>Percentage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Fundamentals (50%)</td>
+                                <td>£{{ spent_fundamentals }}</td>
+                                <td class="{% if fundamentals_percentage > 50 %}red-text{% else %}green-text{% endif %}">
+                                    {{ fundamentals_percentage }}%
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Fun (30%)</td>
+                                <td>£{{ spent_fun }}</td>
+                                <td class="{% if fun_percentage > 30 %}red-text{% else %}green-text{% endif %}">
+                                    {{ fun_percentage }}%
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Future You (20%)</td>
+                                <td>£{{ spent_future_you }}</td>
+                                <td class="{% if future_you_percentage > 20 %}red-text{% else %}green-text{% endif %}">
+                                    {{ future_you_percentage }}%
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
                 <!-- Remaining Tab Content -->

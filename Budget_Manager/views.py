@@ -32,13 +32,18 @@ def dashboard(request):
     total_spent = spent_fundamentals + spent_fun + spent_future_you
     remaining_amount = total_income - total_spent
 
-    # Calculate percentages of income spent on each category
-    def calculate_percentage(amount):
-        return (amount / total_income * 100) if total_income > 0 else 0
+    # Calculate percentages for planned amounts
+    def calculate_percentage(amount, base_percentage):
+        return (amount / total_income * 100) if total_income > 0 else base_percentage
 
-    fundamentals_percentage = calculate_percentage(spent_fundamentals)
-    fun_percentage = calculate_percentage(spent_fun)
-    future_you_percentage = calculate_percentage(spent_future_you)
+    fundamentals_planned_percentage = calculate_percentage(planned_fundamentals, 50)
+    fun_planned_percentage = calculate_percentage(planned_fun, 30)
+    future_you_planned_percentage = calculate_percentage(planned_future_you, 20)
+
+    # Calculate percentages for spent amounts
+    fundamentals_spent_percentage = calculate_percentage(spent_fundamentals, 50)
+    fun_spent_percentage = calculate_percentage(spent_fun, 30)
+    future_you_spent_percentage = calculate_percentage(spent_future_you, 20)
 
     # Create the context
     context = {
@@ -56,13 +61,17 @@ def dashboard(request):
         'planned_future_you': planned_future_you,
         'spent_future_you': spent_future_you,
         'remaining_amount': remaining_amount,
-        'fundamentals_percentage': fundamentals_percentage,
-        'fun_percentage': fun_percentage,
-        'future_you_percentage': future_you_percentage,
+        'fundamentals_planned_percentage': fundamentals_planned_percentage,
+        'fun_planned_percentage': fun_planned_percentage,
+        'future_you_planned_percentage': future_you_planned_percentage,
+        'fundamentals_spent_percentage': fundamentals_spent_percentage,
+        'fun_spent_percentage': fun_spent_percentage,
+        'future_you_spent_percentage': future_you_spent_percentage,
     }
 
     return render(request, 'dashboard.html', context)
 
+# Delete income entry
 @login_required
 def delete_income(request, income_id):
     try:
@@ -72,6 +81,7 @@ def delete_income(request, income_id):
     except Income.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Income not found.'})
 
+# Delete expense entry
 @login_required
 def delete_expense(request, expense_id):
     try:
@@ -81,6 +91,7 @@ def delete_expense(request, expense_id):
     except Expense.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Expense not found.'})
 
+# Get a single income entry
 @login_required
 def get_income(request, income_id):
     income = get_object_or_404(Income, id=income_id, user=request.user)
@@ -94,6 +105,7 @@ def get_income(request, income_id):
     }
     return JsonResponse(data)
 
+# Get a single expense entry
 @login_required
 def get_expense(request, expense_id):
     expense = get_object_or_404(Expense, id=expense_id, user=request.user)
@@ -108,6 +120,7 @@ def get_expense(request, expense_id):
     }
     return JsonResponse(data)
 
+# Sign-up view using the custom user form
 class SignUpView(generic.CreateView):
     form_class = CustomUserCreationForm  # Use the custom form
     success_url = reverse_lazy('login')
