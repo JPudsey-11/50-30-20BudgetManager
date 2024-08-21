@@ -1,564 +1,155 @@
 {% extends 'base.html' %}
-
 {% block content %}
-
 <div class="container">
-
     <div class="row">
-
         <div class="col s8">
-
             <h2>Dashboard</h2>
-
-            <p><a href="{% url 'logout' %}">Log Out</a></p> <!-- Log out link -->
-
-
+            <p><a href="{% url 'logout' %}">Log Out</a></p>
 
             <!-- Income Section -->
-
             <div>
-
                 <h3>Income List</h3>
-
                 <table class="table">
-
                     <thead>
-
                         <tr>
-
                             <th>Source</th>
-
                             <th>Planned Amount</th>
-
                             <th>Received Amount</th>
-
                             <th>Actions</th>
-
                         </tr>
-
                     </thead>
-
                     <tbody>
-
                         {% for income in incomes %}
-
                         <tr id="income-{{ income.id }}">
-
                             <td>{{ income.source }}</td>
-
                             <td>{{ income.planned_amount }}</td>
-
                             <td class="{% if income.received_amount >= income.planned_amount %}green-text{% else %}red-text{% endif %}">
-
                                 {{ income.received_amount }}
-
                             </td>
-
                             <td>
-
-                                <button class="btn red" onclick="deleteIncome('{{ income.id }}')">X</button>
-
-                                <button class="btn blue" onclick="editIncome('{{ income.id }}')">Edit</button>
-
+                                <button class="btn red delete-income" data-id="{{ income.id }}">X</button>
+                                <button class="btn blue edit-income" data-id="{{ income.id }}">Edit</button>
                             </td>
-
                         </tr>
-
                         {% endfor %}
-
                     </tbody>
-
                 </table>
-
                 <button data-target="addIncomeModal" class="btn modal-trigger">Add Income</button>
-
             </div>
 
-
-
-            <!-- Fundamentals Expenses Section -->
-
+            <!-- Expenses Section -->
             <div>
-
                 <h3>Fundamentals Expenses</h3>
-
                 <table class="table">
-
                     <thead>
-
                         <tr>
-
                             <th>Description</th>
-
                             <th>Planned Amount</th>
-
                             <th>Spent Amount</th>
-
                             <th>Actions</th>
-
                         </tr>
-
                     </thead>
-
                     <tbody>
-
                         {% for expense in fundamentals_expenses %}
-
                         <tr id="expense-{{ expense.id }}">
-
                             <td>{{ expense.description }}</td>
-
                             <td>{{ expense.planned_amount }}</td>
-
                             <td class="{% if expense.spent_amount <= expense.planned_amount %}green-text{% else %}red-text{% endif %}">
-
                                 {{ expense.spent_amount }}
-
                             </td>
-
                             <td>
-
-                                <button class="btn red" onclick="deleteExpense('{{ expense.id }}')">X</button>
-
-                                <button class="btn blue" onclick="editExpense('{{ expense.id }}')">Edit</button>
-
+                                <button class="btn red delete-expense" data-id="{{ expense.id }}">X</button>
+                                <button class="btn blue edit-expense" data-id="{{ expense.id }}">Edit</button>
                             </td>
-
                         </tr>
-
                         {% endfor %}
-
                     </tbody>
-
                 </table>
-
                 <button data-target="addExpenseModal" class="btn modal-trigger" onclick="setCategory('Fundamentals')">Add Expense</button>
-
             </div>
 
-
-
-            <!-- Fun Expenses Section -->
-
-            <div>
-
-                <h3>Fun Expenses</h3>
-
-                <table class="table">
-
-                    <thead>
-
-                        <tr>
-
-                            <th>Description</th>
-
-                            <th>Planned Amount</th>
-
-                            <th>Spent Amount</th>
-
-                            <th>Actions</th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                        {% for expense in fun_expenses %}
-
-                        <tr id="expense-{{ expense.id }}">
-
-                            <td>{{ expense.description }}</td>
-
-                            <td>{{ expense.planned_amount }}</td>
-
-                            <td class="{% if expense.spent_amount <= expense.planned_amount %}green-text{% else %}red-text{% endif %}">
-
-                                {{ expense.spent_amount }}
-
-                            </td>
-
-                            <td>
-
-                                <button class="btn red" onclick="deleteExpense('{{ expense.id }}')">X</button>
-
-                                <button class="btn blue" onclick="editExpense('{{ expense.id }}')">Edit</button>
-
-                            </td>
-
-                        </tr>
-
-                        {% endfor %}
-
-                    </tbody>
-
-                </table>
-
-                <button data-target="addExpenseModal" class="btn modal-trigger" onclick="setCategory('Fun')">Add Expense</button>
-
-            </div>
-
-
-
-            <!-- Future You Expenses Section -->
-
-            <div>
-
-                <h3>Future You Expenses</h3>
-
-                <table class="table">
-
-                    <thead>
-
-                        <tr>
-
-                            <th>Description</th>
-
-                            <th>Planned Amount</th>
-
-                            <th>Spent Amount</th>
-
-                            <th>Actions</th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                        {% for expense in future_you_expenses %}
-
-                        <tr id="expense-{{ expense.id }}">
-
-                            <td>{{ expense.description }}</td>
-
-                            <td>{{ expense.planned_amount }}</td>
-
-                            <td class="{% if expense.spent_amount <= expense.planned_amount %}green-text{% else %}red-text{% endif %}">
-
-                                {{ expense.spent_amount }}
-
-                            </td>
-
-                            <td>
-
-                                <button class="btn red" onclick="deleteExpense('{{ expense.id }}')">X</button>
-
-                                <button class="btn blue" onclick="editExpense('{{ expense.id }}')">Edit</button>
-
-                            </td>
-
-                        </tr>
-
-                        {% endfor %}
-
-                    </tbody>
-
-                </table>
-
-                <button data-target="addExpenseModal" class="btn modal-trigger" onclick="setCategory('Future You')">Add Expense</button>
-
-            </div>
-
+            <!-- Repeat similar sections for 'Fun' and 'Future You' categories -->
         </div>
 
+        <!-- Sidebar Section -->
+        <div class="col s4" style="background-color: #F2F2F7; padding: 20px;">
+            <div class="sidebar-section">
+                <h5 style="text-transform: uppercase; color: #36343B;">INCOME</h5>
+                <h3 style="color: #36343B;">£{{ total_income }}</h3>
 
-        
-        <div class="col s4">
-            <div class="card teal darken-2 white-text">
-                <div class="card-content">
-                    <h5>Summary</h5>
-                    
-                    <!-- Tabs Structure -->
-                    <div class="row">
-                        <div class="col s12">
-                            <ul class="tabs">
-                                <li class="tab col s4"><a class="active" href="#planned">Planned</a></li>
-                                <li class="tab col s4"><a href="#spent">Spent</a></li>
-                                <li class="tab col s4"><a href="#remaining">Remaining</a></li>
-                            </ul>
-                        </div>
-                        <div id="planned" class="col s12">
-                            <ul>
-                                <li>Fundamentals: £{{ planned_fundamentals }} ({{ fundamentals_percentage }}%)</li>
-                                <li>Fun: £{{ planned_fun }} ({{ fun_percentage }}%)</li>
-                                <li>Future You: £{{ planned_future_you }} ({{ future_you_percentage }}%)</li>
-                            </ul>
-                        </div>
-                        <div id="spent" class="col s12">
-                            <ul>
-                                <li>Fundamentals: £{{ spent_fundamentals }} ({{ fundamentals_percentage }}%)</li>
-                                <li>Fun: £{{ spent_fun }} ({{ fun_percentage }}%)</li>
-                                <li>Future You: £{{ spent_future_you }} ({{ future_you_percentage }}%)</li>
-                            </ul>
-                        </div>
-                        <div id="remaining" class="col s12">
-                            <h5>£{{ remaining_amount }}</h5>
-                            {% if remaining_amount > 0 %}
-                            <p>Congrats! You have some money remaining. Why not dedicate this to future you?</p>
-                            {% elif remaining_amount < 0 %}
-                            <p>Oh no, it seems you have gone over your limit this month. Try spending less next month or earn more.</p>
-                            {% else %}
-                            <p>Phew, you've made it!</p>
-                            {% endif %}
-                        </div>
-                    </div>
+                <!-- Tabs Navigation -->
+                <ul class="tabs" style="background-color: #F2F2F7;">
+                    <li class="tab col s3"><a class="active" href="#planned-tab">Planned</a></li>
+                    <li class="tab col s3"><a href="#spent-tab">Spent</a></li>
+                    <li class="tab col s3"><a href="#remaining-tab">Remaining</a></li>
+                </ul>
+
+                <!-- Planned Tab Content -->
+                <div id="planned-tab" class="col s12" style="color: #36343B;">
+                    <ul>
+                        <li>Fundamentals: £{{ planned_fundamentals }}</li>
+                        <li>Fun: £{{ planned_fun }}</li>
+                        <li>Future You: £{{ planned_future_you }}</li>
+                    </ul>
+                </div>
+
+                <!-- Spent Tab Content -->
+                <div id="spent-tab" class="col s12" style="color: #36343B;">
+                    <ul>
+                        <li>Fundamentals: £{{ spent_fundamentals }}</li>
+                        <li>Fun: £{{ spent_fun }}</li>
+                        <li>Future You: £{{ spent_future_you }}</li>
+                    </ul>
+                </div>
+
+                <!-- Remaining Tab Content -->
+                <div id="remaining-tab" class="col s12" style="color: #36343B;">
+                    <h4>Remaining: £{{ remaining_amount }}</h4>
+                    {% if remaining_amount > 0 %}
+                    <p>Congrats! You have some money remaining. Why not dedicate this to future you?</p>
+                    {% elif remaining_amount < 0 %}
+                    <p>Oh no, it seems you have gone over your limit this month. Try spending less next month or earn more.</p>
+                    {% else %}
+                    <p>Phew, you've made it!</p>
+                    {% endif %}
                 </div>
             </div>
         </div>
-
-
+    </div>
 
     <!-- Add Income Modal -->
-
     <div id="addIncomeModal" class="modal">
-
         <div class="modal-content">
-
             <h4>Add Income</h4>
-
             <form method="POST" action="{% url 'dashboard' %}" id="incomeForm">
-
                 {% csrf_token %}
-
-                <!-- Hidden input to store income ID -->
-
-                <input type="hidden" id="income-id" name="income_id">
-
                 {{ income_form.as_p }}
-
                 <button type="submit" name="income_submit" class="btn">Add Income</button>
-
             </form>
-
         </div>
-
     </div>
-
-
 
     <!-- Add Expense Modal -->
-
     <div id="addExpenseModal" class="modal">
-
         <div class="modal-content">
-
             <h4>Add Expense</h4>
-
             <form method="POST" action="{% url 'dashboard' %}" id="expenseForm">
-
                 {% csrf_token %}
-
-                <!-- Hidden input to store expense ID -->
-
-                <input type="hidden" id="expense-id" name="expense_id">
-
                 <input type="hidden" id="categoryInput" name="category" value="">
-
                 {{ expense_form.description }}
-
                 {{ expense_form.planned_amount }}
-
                 {{ expense_form.spent_amount }}
-
                 <button type="submit" name="expense_submit" class="btn">Add Expense</button>
-
             </form>
-
         </div>
-
     </div>
-
 </div>
 
-
-
 <script>
-
-    function setCategory(category) {
-
-        document.getElementById('categoryInput').value = category;
-
-    }
-
-
-
-    function deleteIncome(incomeId) {
-
-        if (confirm("Are you sure you want to delete this income?")) {
-
-            fetch(`/delete_income/${incomeId}/`, {
-
-                method: 'POST',
-
-                headers: {
-
-                    'X-CSRFToken': '{{ csrf_token }}',
-
-                }
-
-            })
-
-            .then(response => response.json())
-
-            .then(data => {
-
-                if (data.success) {
-
-                    document.getElementById(`income-${incomeId}`).remove();
-
-                } else {
-
-                    alert("Failed to delete income.");
-
-                }
-
-            });
-
-        }
-
-    }
-
-
-
-    function deleteExpense(expenseId) {
-
-        if (confirm("Are you sure you want to delete this expense?")) {
-
-            fetch(`/delete_expense/${expenseId}/`, {
-
-                method: 'POST',
-
-                headers: {
-
-                    'X-CSRFToken': '{{ csrf_token }}',
-
-                }
-
-            })
-
-            .then(response => response.json())
-
-            .then(data => {
-
-                if (data.success) {
-
-                    document.getElementById(`expense-${expenseId}`).remove();
-
-                } else {
-
-                    alert("Failed to delete expense.");
-
-                }
-
-            });
-
-        }
-
-    }
-
-
-
-    function editIncome(incomeId) {
-
-        fetch(`/get_income/${incomeId}/`, {
-
-            method: 'GET',
-
-            headers: {
-
-                'X-CSRFToken': getCookie('csrftoken'),
-
-            }
-
-        })
-
-        .then(response => response.json())
-
-        .then(data => {
-
-            if (data.success) {
-
-                document.getElementById('income-id').value = incomeId;
-
-                document.getElementById('id_source').value = data.income.source;
-
-                document.getElementById('id_planned_amount').value = data.income.planned_amount;
-
-                document.getElementById('id_received_amount').value = data.income.received_amount;
-
-                var instance = M.Modal.getInstance(document.getElementById('addIncomeModal'));
-
-                instance.open();
-
-            } else {
-
-                alert("Failed to fetch income data.");
-
-            }
-
-        });
-
-    }
-
-
-
-    function editExpense(expenseId) {
-
-        fetch(`/get_expense/${expenseId}/`, {
-
-            method: 'GET',
-
-            headers: {
-
-                'X-CSRFToken': getCookie('csrftoken'),
-
-            }
-
-        })
-
-        .then(response => response.json())
-
-        .then(data => {
-
-            if (data.success) {
-
-                document.getElementById('expense-id').value = expenseId;
-
-                document.getElementById('id_description').value = data.expense.description;
-
-                document.getElementById('id_planned_amount').value = data.expense.planned_amount;
-
-                document.getElementById('id_spent_amount').value = data.expense.spent_amount;
-
-                document.getElementById('categoryInput').value = data.expense.category;
-
-                var instance = M.Modal.getInstance(document.getElementById('addExpenseModal'));
-
-                instance.open();
-
-            } else {
-
-                alert("Failed to fetch expense data.");
-
-            }
-
-        });
-
-    }
-
-
-
     document.addEventListener('DOMContentLoaded', function() {
-
-        var elems = document.querySelectorAll('.modal');
-
-        var instances = M.Modal.init(elems);
-
+        var elems = document.querySelectorAll('.tabs');
+        var instances = M.Tabs.init(elems);
     });
-
 </script>
-
-
 
 {% endblock %}

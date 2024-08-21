@@ -4,7 +4,7 @@
 /* General Styles */
 html {
     font-family: 'Montserrat', sans-serif;
-    background-color: #e0e0e0;
+    background-color: #FFFFFF;
 }
 
 .bold {
@@ -57,12 +57,30 @@ html {
 /* Right Section (Summary Sidebar) */
 .sidebar-section {
     flex: 1;
-    background-color: #26a69a; /* or your preferred color */
+    background-color: #F2F2F7;
     padding: 20px;
     border-radius: 8px;
-    color: white;
+    color: #36343B;
 }
 
-.sidebar-section h4, .sidebar-section h5, .sidebar-section p {
+.sidebar-section h3, .sidebar-section h4, .sidebar-section h5, .sidebar-section p {
     margin: 0 0 10px;
+    color: #36343B;
+}
+
+.tabs .tab a {
+    color: #36343B;
+}
+
+.tabs .tab a.active {
+    color: #36343B;
+    background-color: #F2F2F7;
+}
+
+.tabs .tab a:hover {
+    color: #36343B;
+}
+
+.tabs .indicator {
+    background-color: #36343B;
 }
