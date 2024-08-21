@@ -102,6 +102,9 @@ html {
     color: #007AFF; /* Active link color */
 }
 
-.container {
-    max-width: 1200px; /* Set the maximum width of the content */
+.custom-container {
+    max-width: 1200px; /* Adjust this value as needed */
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
 }

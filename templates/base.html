@@ -17,7 +17,6 @@
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="{% url 'guide' %}" target="_blank" class="{% if request.path == '/guide/' %}active{% endif %}">Guide</a></li>
                 {% if user.is_authenticated %}
-                    <!-- Removed the redundant Dashboard link from the navbar -->
                     <li><a href="{% url 'logout' %}">Log Out</a></li>
                 {% else %}
                     <li><a href="{% url 'signup' %}" class="{% if request.path == '/signup/' %}active{% endif %}">Sign Up</a></li>
@@ -28,7 +27,7 @@
     </nav>
 
     <!-- Main Content -->
-    <div class="container" style="max-width: 1200px;"> <!-- Increased the max-width for wider content area -->
+    <div class="custom-container">
         {% block content %}
         {% endblock %}
     </div>
