@@ -15,13 +15,25 @@ document.addEventListener('DOMContentLoaded', function() {
         return cookieValue;
     }
 
+    // Financial function to format numbers to two decimal places
+    function financial(x) {
+        return Number.parseFloat(x).toFixed(2);
+    }
+
     // Initialize Materialize CSS modals
     var elems = document.querySelectorAll('.modal');
     var instances = M.Modal.init(elems);
 
-    // Initialize Materialize CSS tabs (Add this line)
-    var tabElems = document.querySelectorAll('.tabs');
-    var tabInstances = M.Tabs.init(tabElems);
+    // Apply financial formatting to percentages
+    const fundamentalsPercentageElement = document.getElementById('fundamentals-percentage');
+    const funPercentageElement = document.getElementById('fun-percentage');
+    const futureYouPercentageElement = document.getElementById('future-you-percentage');
+
+    if (fundamentalsPercentageElement && funPercentageElement && futureYouPercentageElement) {
+        fundamentalsPercentageElement.textContent = financial(fundamentalsPercentageElement.textContent) + '%';
+        funPercentageElement.textContent = financial(funPercentageElement.textContent) + '%';
+        futureYouPercentageElement.textContent = financial(futureYouPercentageElement.textContent) + '%';
+    }
 
     // Handle income deletion
     document.querySelectorAll('.delete-income').forEach(button => {
