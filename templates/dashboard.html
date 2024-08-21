@@ -263,66 +263,49 @@
         </div>
 
 
-
+        
         <div class="col s4">
-
             <div class="card teal darken-2 white-text">
-
                 <div class="card-content">
-
                     <h5>Summary</h5>
-
-                    <p>Total Income: £{{ total_income }}</p>
-
-                    <p>Planned Expenses</p>
-
-                    <ul>
-
-                        <li>Fundamentals: £{{ planned_fundamentals }} ({{ fundamentals_percentage }}%)</li>
-
-                        <li>Fun: £{{ planned_fun }} ({{ fun_percentage }}%)</li>
-
-                        <li>Future You: £{{ planned_future_you }} ({{ future_you_percentage }}%)</li>
-
-                    </ul>
-
-                    <p>Spent Expenses</p>
-
-                    <ul>
-
-                        <li>Fundamentals: £{{ spent_fundamentals }} ({{ fundamentals_percentage }}%)</li>
-
-                        <li>Fun: £{{ spent_fun }} ({{ fun_percentage }}%)</li>
-
-                        <li>Future You: £{{ spent_future_you }} ({{ future_you_percentage }}%)</li>
-
-                    </ul>
-
-                    <p>Remaining Balance</p>
-
-                    <h5>£{{ remaining_amount }}</h5>
-
-                    {% if remaining_amount > 0 %}
-
-                    <p>Congrats! You have some money remaining. Why not dedicate this to future you?</p>
-
-                    {% elif remaining_amount < 0 %}
-
-                    <p>Oh no, it seems you have gone over your limit this month. Try spending less next month or earn more.</p>
-
-                    {% else %}
-
-                    <p>Phew, you've made it!</p>
-
-                    {% endif %}
-
+                    
+                    <!-- Tabs Structure -->
+                    <div class="row">
+                        <div class="col s12">
+                            <ul class="tabs">
+                                <li class="tab col s4"><a class="active" href="#planned">Planned</a></li>
+                                <li class="tab col s4"><a href="#spent">Spent</a></li>
+                                <li class="tab col s4"><a href="#remaining">Remaining</a></li>
+                            </ul>
+                        </div>
+                        <div id="planned" class="col s12">
+                            <ul>
+                                <li>Fundamentals: £{{ planned_fundamentals }} ({{ fundamentals_percentage }}%)</li>
+                                <li>Fun: £{{ planned_fun }} ({{ fun_percentage }}%)</li>
+                                <li>Future You: £{{ planned_future_you }} ({{ future_you_percentage }}%)</li>
+                            </ul>
+                        </div>
+                        <div id="spent" class="col s12">
+                            <ul>
+                                <li>Fundamentals: £{{ spent_fundamentals }} ({{ fundamentals_percentage }}%)</li>
+                                <li>Fun: £{{ spent_fun }} ({{ fun_percentage }}%)</li>
+                                <li>Future You: £{{ spent_future_you }} ({{ future_you_percentage }}%)</li>
+                            </ul>
+                        </div>
+                        <div id="remaining" class="col s12">
+                            <h5>£{{ remaining_amount }}</h5>
+                            {% if remaining_amount > 0 %}
+                            <p>Congrats! You have some money remaining. Why not dedicate this to future you?</p>
+                            {% elif remaining_amount < 0 %}
+                            <p>Oh no, it seems you have gone over your limit this month. Try spending less next month or earn more.</p>
+                            {% else %}
+                            <p>Phew, you've made it!</p>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
-
             </div>
-
         </div>
-
-    </div>
 
 
 

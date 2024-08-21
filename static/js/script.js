@@ -19,6 +19,10 @@ document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.modal');
     var instances = M.Modal.init(elems);
 
+    // Initialize Materialize CSS tabs (Add this line)
+    var tabElems = document.querySelectorAll('.tabs');
+    var tabInstances = M.Tabs.init(tabElems);
+
     // Handle income deletion
     document.querySelectorAll('.delete-income').forEach(button => {
         button.addEventListener('click', function(e) {
