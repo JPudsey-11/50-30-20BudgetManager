@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 if (data.success) {
                     document.getElementById(`income-${incomeId}`).remove();
+                    alert('Income successfully deleted.'); // Simple alert
                 } else {
                     console.error('Failed to delete income');
                 }
@@ -101,6 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 if (data.success) {
                     document.getElementById(`expense-${expenseId}`).remove();
+                    alert('Expense successfully deleted.'); // Simple alert
                 } else {
                     console.error('Failed to delete expense');
                 }
