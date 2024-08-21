@@ -168,20 +168,59 @@
         </div>
 
         <!-- Sidebar Section -->
-        <div class="col s4" style="background-color: #F2F2F7; padding: 20px;">
-            <div class="sidebar-section">
-                <h5 style="text-transform: uppercase; color: #36343B;">INCOME</h5>
-                <h3 style="color: #36343B;">£{{ total_income }}</h3>
+<div class="col s4" style="background-color: #F2F2F7; padding: 20px;">
+    <div class="sidebar-section">
+        <h5 style="text-transform: uppercase; color: #36343B;">INCOME</h5>
+        <h3 style="color: #36343B;">£{{ total_income }}</h3>
         
-                <!-- Doughnut Chart -->
-                <canvas id="incomeDoughnutChart"></canvas>
+        <!-- Doughnut Chart -->
+        <canvas id="incomeDoughnutChart"></canvas>
 
-                <!-- Tabs Navigation -->
-                <ul class="tabs" style="background-color: #F2F2F7;">
-                    <li class="tab col s3"><a class="active" href="#planned-tab">Planned</a></li>
-                    <li class="tab col s3"><a href="#spent-tab">Spent</a></li>
-                    <li class="tab col s3"><a href="#remaining-tab">Remaining</a></li>
-                </ul>
+        <!-- Inline JavaScript for Doughnut Chart -->
+        <script>
+            const ctx = document.getElementById('incomeDoughnutChart').getContext('2d');
+            const incomeDoughnutChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Fundamentals', 'Fun', 'Future You'],
+                    datasets: [{
+                        label: 'Income Distribution',
+                        data: [
+                            {{ planned_fundamentals_percentage }},  // Django variable insertion
+                            {{ planned_fun_percentage }},
+                            {{ planned_future_you_percentage }}
+                        ],
+                        backgroundColor: ['#007AFF', '#FF3B30', '#34C759'],
+                        borderColor: ['#FFFFFF'],  // Correct comma placement
+                        borderWidth: 2  // No trailing comma here
+                    }]  // No trailing comma here
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',  // Correct comma placement
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    return tooltipItem.label + ': ' + tooltipItem.raw + '%';  // Correct syntax
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        </script>
+
+        <!-- Tabs Navigation -->
+        <ul class="tabs" style="background-color: #F2F2F7;">
+            <!-- Tab content here -->
+        </ul>
+
+        <!-- Other tab contents... -->
+    </div>
+</div>
 
                 <!-- Planned Tab Content -->
                 <div id="planned-tab" class="col s12">

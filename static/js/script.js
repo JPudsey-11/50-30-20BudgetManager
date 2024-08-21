@@ -15,44 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return cookieValue;
     }
 
-    // Existing code for modals, financial formatting, etc.
-
-    // Initialize the Doughnut Chart
-    const ctx = document.getElementById('incomeDoughnutChart').getContext('2d');
-    const incomeDoughnutChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Fundamentals', 'Fun', 'Future You'],
-            datasets: [{
-                label: 'Income Distribution',
-                data: [
-                    {{ planned_fundamentals_percentage }},
-                    {{ planned_fun_percentage }},
-                    {{ planned_future_you_percentage }}
-                ],
-                backgroundColor: ['#007AFF', '#FF3B30', '#34C759'],
-                borderColor: ['#FFFFFF'],
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(tooltipItem) {
-                            return tooltipItem.label + ': ' + tooltipItem.raw + '%';
-                        }
-                    }
-                }
-            }
-        }
-    });
-});
-
     // Financial function to format numbers to two decimal places
     function financial(x) {
         return Number.parseFloat(x).toFixed(2);
@@ -62,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.modal');
     var instances = M.Modal.init(elems);
 
-    // Apply financial formatting to percentages
+    // Apply financial formatting to percentages (used on the sidebar summary)
     const fundamentalsPercentageElement = document.getElementById('fundamentals-percentage');
     const funPercentageElement = document.getElementById('fun-percentage');
     const futureYouPercentageElement = document.getElementById('future-you-percentage');
@@ -89,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 if (data.success) {
                     document.getElementById(`income-${incomeId}`).remove();
-                    alert('Income successfully deleted.'); // Simple alert
+                    alert('Income successfully deleted.');
                 } else {
                     console.error('Failed to delete income');
                 }
@@ -140,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 if (data.success) {
                     document.getElementById(`expense-${expenseId}`).remove();
-                    alert('Expense successfully deleted.'); // Simple alert
+                    alert('Expense successfully deleted.');
                 } else {
                     console.error('Failed to delete expense');
                 }
