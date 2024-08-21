@@ -171,57 +171,21 @@
 <div class="col s4" style="background-color: #F2F2F7; padding: 20px;">
     <div class="sidebar-section">
         <h5 style="text-transform: uppercase; color: #36343B;">INCOME</h5>
-        <h3 style="color: #36343B;">£{{ total_income }}</h3>
-        
-        <!-- Doughnut Chart -->
-        <canvas id="incomeDoughnutChart"></canvas>
 
-        <!-- Inline JavaScript for Doughnut Chart -->
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const ctx = document.getElementById('incomeDoughnutChart').getContext('2d');
-                const incomeDoughnutChart = new Chart(ctx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Fundamentals', 'Fun', 'Future You', 'Remaining'],
-                        datasets: [{
-                            label: 'Income Distribution',
-                            data: [
-                                {{ planned_fundamentals_percentage }},
-                                {{ planned_fun_percentage }},
-                                {{ planned_future_you_percentage }},
-                                100 - ({{ planned_fundamentals_percentage }} + {{ planned_fun_percentage }} + {{ planned_future_you_percentage }})
-                            ],
-                            backgroundColor: ['#7C3E71', '#64BA9E', '#7C3E71', '#E5E5EA'],
-                            borderColor: '#FFFFFF',
-                            borderWidth: 4  // Thinner stroke width
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        cutout: '70%', // Reduces the thickness of the doughnut ring
-                        plugins: {
-                            legend: {
-                                display: false, // Hide legend if necessary
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(tooltipItem) {
-                                        return tooltipItem.label + ': ' + tooltipItem.raw + '%';
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-            });
-        </script>
+        <!-- Doughnut Chart with Income Text -->
+        <div style="position: relative; width: 100%; height: 200px; margin-bottom: 20px;">
+            <canvas id="incomeDoughnutChart"></canvas>
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                <div style="font-family: 'Montserrat', sans-serif; color: #36343B; font-size: 1.2em;">INCOME</div>
+                <div style="font-family: 'Montserrat', sans-serif; color: #36343B; font-size: 1.5em; font-weight: bold;">£{{ total_income }}</div>
+            </div>
+        </div>
 
         <!-- Tabs Navigation -->
         <ul class="tabs" style="background-color: #F2F2F7;">
-            <li class="tab col s4"><a href="#planned-tab" class="active">Planned</a></li>
-            <li class="tab col s4"><a href="#spent-tab">Spent</a></li>
-            <li class="tab col s4"><a href="#remaining-tab">Remaining</a></li>
+            <li class="tab col s4"><a class="active" href="#planned-tab">PLANNED</a></li>
+            <li class="tab col s4"><a href="#spent-tab">SPENT</a></li>
+            <li class="tab col s4"><a href="#remaining-tab">REMAINING</a></li>
         </ul>
 
         <!-- Planned Tab Content -->
@@ -309,6 +273,81 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('incomeDoughnutChart').getContext('2d');
+        const incomeDoughnutChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Fundamentals', 'Fun', 'Future You', 'Remaining'],
+                datasets: [{
+                    label: 'Income Distribution',
+                    data: [
+                        {{ planned_fundamentals_percentage }},
+                        {{ planned_fun_percentage }},
+                        {{ planned_future_you_percentage }},
+                        100 - ({{ planned_fundamentals_percentage }} + {{ planned_fun_percentage }} + {{ planned_future_you_percentage }})
+                    ],
+                    backgroundColor: [
+                        '#7C3E71',   // Fundamentals color
+                        '#64BA9E',   // Fun color
+                        '#7C3E71',   // Future You color
+                        '#E5E5EA'    // Remaining color (grey)
+                    ],
+                    borderColor: ['#FFFFFF'],
+                    borderWidth: 6,  // Set the stroke width
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                cutout: '80%',  // This makes the center larger, mimicking a border-only style
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false  // Hide the legend
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw + '%';
+                            }
+                        }
+                    },
+                    beforeDraw: function(chart) {
+                        var width = chart.width,
+                            height = chart.height,
+                            ctx = chart.ctx;
+
+                        ctx.restore();
+                        var fontSize = (height / 114).toFixed(2);
+                        ctx.font = fontSize + "em Montserrat";
+                        ctx.textBaseline = "middle";
+
+                        var text = "INCOME",
+                            textX = Math.round((width - ctx.measureText(text).width) / 2),
+                            textY = height / 2.2;
+
+                        ctx.fillText(text, textX, textY);
+
+                        ctx.font = (fontSize * 1.5) + "em Montserrat";  // Larger font for the amount
+                        var amountText = "£" + {{ total_income }},
+                            amountTextX = Math.round((width - ctx.measureText(amountText).width) / 2),
+                            amountTextY = height / 1.6;
+
+                        ctx.fillText(amountText, amountTextX, amountTextY);
+                        ctx.save();
+                    }
+                }
+            }
+        });
+
+        // Initialize the tabs
+        var elems = document.querySelectorAll('.tabs');
+        var instances = M.Tabs.init(elems);
+    });
+</script>
+
     <!-- Add Income Modal -->
     <div id="addIncomeModal" class="modal">
         <div class="modal-content">

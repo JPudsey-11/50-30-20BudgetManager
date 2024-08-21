@@ -54,16 +54,13 @@ html {
     margin-right: 20px;
 }
 
-/* Right Section (Summary Sidebar) */
+/* Add or update these styles */
+
 .sidebar-section {
-    flex: 1;
-    background-color: #F2F2F7;
-    padding: 20px;
-    border-radius: 8px;
-    color: #36343B;
+    text-align: center;
 }
 
-.sidebar-section h3, .sidebar-section h4, .sidebar-section h5, .sidebar-section p {
+.sidebar-section h5, .sidebar-section h3 {
     margin: 0 0 10px;
     color: #36343B;
 }
@@ -77,12 +74,33 @@ html {
     background-color: #F2F2F7;
 }
 
-.tabs .tab a:hover {
-    color: #36343B;
-}
-
 .tabs .indicator {
     background-color: #36343B;
+}
+
+.canvas-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+}
+
+.canvas-container canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.canvas-container .center-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.center-text div {
+    font-family: 'Montserrat', sans-serif;
+    color: #36343B;
 }
 
 /* Navbar Styles */
