@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.landing_page, name='landing-page'),  # Set landing page as the home page
+    
     path('dashboard/', views.dashboard, name='dashboard'),
     
     # Income paths
@@ -16,4 +16,5 @@ urlpatterns = [
     # Authentication paths
     path('signup/', views.SignUpView.as_view(), name='signup'),
     path('guide/', views.guide, name='guide'),
+    path('landing/', views.landing_page, name='landing-page'),  # Set landing page as the home page
 ]
