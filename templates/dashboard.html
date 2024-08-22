@@ -1,275 +1,263 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col s8">
+<div class="custom-container">
+    <div class="row main-container">
+        <div class="col s12 m8 l8 income-expense-section">
             <!-- Income Section -->
-            <div>
-                <h3>Income List</h3>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Source</th>
-                            <th>Planned Amount</th>
-                            <th>Received Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for income in incomes %}
-                        <tr id="income-{{ income.id }}">
-                            <td>{{ income.source }}</td>
-                            <td>{{ income.planned_amount }}</td>
-                            <td class="{% if income.received_amount >= income.planned_amount %}green-text{% else %}red-text{% endif %}">
-                                {{ income.received_amount }}
-                            </td>
-                            <td>
-                                <!-- Edit Button (SVG Icon) -->
-                                <button class="btn-icon edit-income" data-id="{{ income.id }}" style="background-color: transparent; border: none; cursor: pointer;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#007AFF" style="width: 24px; height: 24px;">
-                                        <path d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1
-                                        C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152L0 424c0 48.6 39.4 88 88 88l272 0c48.6 0 88-39.4 88-88l0-112c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 112c0 22.1-17.9 40-40 40L88 464c-22.1 0-40-17.9-40-40l0-272c0-22.1 17.9-40 40-40l112 0c13.3 0 24-10.7 24-24s-10.7-24-24-24L88 64z"/>
-                                    </svg>
-                                </button>
-                                <!-- Delete Button (SVG Icon) -->
-                                <button class="btn-icon delete-income" data-id="{{ income.id }}" style="background-color: transparent; border: none; cursor: pointer;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#FF3B30" style="width: 24px; height: 24px;">
-                                        <path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/>
-                                    </svg>
-                                </button>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                <button data-target="addIncomeModal" class="btn modal-trigger">Add Income</button>
-            </div>
+            <h3>Income List</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Source</th>
+                        <th>Planned Amount</th>
+                        <th>Received Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for income in incomes %}
+                    <tr id="income-{{ income.id }}">
+                        <td>{{ income.source }}</td>
+                        <td>{{ income.planned_amount }}</td>
+                        <td class="{% if income.received_amount >= income.planned_amount %}green-text{% else %}red-text{% endif %}">
+                            {{ income.received_amount }}
+                        </td>
+                        <td>
+                            <!-- Edit Button (SVG Icon) -->
+                            <button class="btn-icon edit-income" data-id="{{ income.id }}" style="background-color: transparent; border: none; cursor: pointer;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#007AFF" style="width: 24px; height: 24px;">
+                                    <path d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152L0 424c0 48.6 39.4 88 88 88l272 0c48.6 0 88-39.4 88-88l0-112c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 112c0 22.1-17.9 40-40 40L88 464c-22.1 0-40-17.9-40-40l0-272c0-22.1 17.9-40 40-40l112 0c13.3 0 24-10.7 24-24s-10.7-24-24-24L88 64z"/>
+                                </svg>
+                            </button>
+                            <!-- Delete Button (SVG Icon) -->
+                            <button class="btn-icon delete-income" data-id="{{ income.id }}" style="background-color: transparent; border: none; cursor: pointer;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#FF3B30" style="width: 24px; height: 24px;">
+                                    <path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/>
+                                </svg>
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button data-target="addIncomeModal" class="btn modal-trigger">Add Income</button>
 
             <!-- Fundamentals Expenses Section -->
-            <div>
-                <h3>Fundamentals Expenses</h3>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Description</th>
-                            <th>Planned Amount</th>
-                            <th>Spent Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for expense in fundamentals_expenses %}
-                        <tr id="expense-{{ expense.id }}">
-                            <td>{{ expense.description }}</td>
-                            <td>{{ expense.planned_amount }}</td>
-                            <td class="{% if expense.spent_amount <= expense.planned_amount %}green-text{% else %}red-text{% endif %}">
-                                {{ expense.spent_amount }}
-                            </td>
-                            <td>
-                                <!-- Edit Button (SVG Icon) -->
-                                <button class="btn-icon edit-expense" data-id="{{ expense.id }}" style="background-color: transparent; border: none; cursor: pointer;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#007AFF" style="width: 24px; height: 24px;">
-                                        <path d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152L0 424c0 48.6 39.4 88 88 88l272 0c48.6 0 88-39.4 88-88l0-112c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 112c0 22.1-17.9 40-40 40L88 464c-22.1 0-40-17.9-40-40l0-272c0-22.1 17.9-40 40-40l112 0c13.3 0 24-10.7 24-24s-10.7-24-24-24L88 64z"/>
-                                    </svg>
-                                </button>
-                                <!-- Delete Button (SVG Icon) -->
-                                <button class="btn-icon delete-expense" data-id="{{ expense.id }}" style="background-color: transparent; border: none; cursor: pointer;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#FF3B30" style="width: 24px; height: 24px;">
-                                        <path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/>
-                                    </svg>
-                                </button>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                <button data-target="addExpenseModal" class="btn modal-trigger" onclick="setCategory('Fundamentals')">Add Expense</button>
-            </div>
+            <h3>Fundamentals Expenses</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Planned Amount</th>
+                        <th>Spent Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for expense in fundamentals_expenses %}
+                    <tr id="expense-{{ expense.id }}">
+                        <td>{{ expense.description }}</td>
+                        <td>{{ expense.planned_amount }}</td>
+                        <td class="{% if expense.spent_amount <= expense.planned_amount %}green-text{% else %}red-text{% endif %}">
+                            {{ expense.spent_amount }}
+                        </td>
+                        <td>
+                            <!-- Edit Button (SVG Icon) -->
+                            <button class="btn-icon edit-expense" data-id="{{ expense.id }}" style="background-color: transparent; border: none; cursor: pointer;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#007AFF" style="width: 24px; height: 24px;">
+                                    <path d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152L0 424c0 48.6 39.4 88 88 88l272 0c48.6 0 88-39.4 88-88l0-112c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 112c0 22.1-17.9 40-40 40L88 464c-22.1 0-40-17.9-40-40l0-272c0-22.1 17.9-40 40-40l112 0c13.3 0 24-10.7 24-24s-10.7-24-24-24L88 64z"/>
+                                </svg>
+                            </button>
+                            <!-- Delete Button (SVG Icon) -->
+                            <button class="btn-icon delete-expense" data-id="{{ expense.id }}" style="background-color: transparent; border: none; cursor: pointer;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#FF3B30" style="width: 24px; height: 24px;">
+                                    <path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/>
+                                </svg>
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button data-target="addExpenseModal" class="btn modal-trigger" onclick="setCategory('Fundamentals')">Add Expense</button>
 
             <!-- Fun Expenses Section -->
-            <div>
-                <h3>Fun Expenses</h3>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Description</th>
-                            <th>Planned Amount</th>
-                            <th>Spent Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for expense in fun_expenses %}
-                        <tr id="expense-{{ expense.id }}">
-                            <td>{{ expense.description }}</td>
-                            <td>{{ expense.planned_amount }}</td>
-                            <td class="{% if expense.spent_amount <= expense.planned_amount %}green-text{% else %}red-text{% endif %}">
-                                {{ expense.spent_amount }}
-                            </td>
-                            <td>
-                                <!-- Edit Button (SVG Icon) -->
-                                <button class="btn-icon edit-expense" data-id="{{ expense.id }}" style="background-color: transparent; border: none;
-                                                                cursor: pointer;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#007AFF" style="width: 24px; height: 24px;">
-                                        <path d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152L0 424c0 48.6 39.4 88 88 88l272 0c48.6 0 88-39.4 88-88l0-112c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 112c0 22.1-17.9 40-40 40L88 464c-22.1 0-40-17.9-40-40l0-272c0-22.1 17.9-40 40-40l112 0c13.3 0 24-10.7 24-24s-10.7-24-24-24L88 64z"/>
-                                    </svg>
-                                </button>
-                                <!-- Delete Button (SVG Icon) -->
-                                <button class="btn-icon delete-expense" data-id="{{ expense.id }}" style="background-color: transparent; border: none; cursor: pointer;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#FF3B30" style="width: 24px; height: 24px;">
-                                        <path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/>
-                                    </svg>
-                                </button>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                <button data-target="addExpenseModal" class="btn modal-trigger" onclick="setCategory('Fun')">Add Expense</button>
-            </div>
+            <h3>Fun Expenses</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Planned Amount</th>
+                        <th>Spent Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for expense in fun_expenses %}
+                    <tr id="expense-{{ expense.id }}">
+                        <td>{{ expense.description }}</td>
+                        <td>{{ expense.planned_amount }}</td>
+                        <td class="{% if expense.spent_amount <= expense.planned_amount %}green-text{% else %}red-text{% endif %}">
+                            {{ expense.spent_amount }}
+                        </td>
+                        <td>
+                            <!-- Edit Button (SVG Icon) -->
+                            <button class="btn-icon edit-expense" data-id="{{ expense.id }}" style="background-color: transparent; border: none; cursor: pointer;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#007AFF" style="width: 24px; height: 24px;">
+                                    <path d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152L0 424c0 48.6 39.4 88 88 88l272 0c48.6 0 88-39.4 88-88l0-112c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 112c0 22.1-17.9 40-40 40L88 464c-22.1 0-40-17.9-40-40l0-272c0-22.1 17.9-40 40-40l112 0c13.3 0 24-10.7 24-24s-10.7-24-24-24L88 64z"/>
+                                </svg>
+                            </button>
+                            <!-- Delete Button (SVG Icon) -->
+                            <button class="btn-icon delete-expense" data-id="{{ expense.id }}" style="background-color: transparent; border: none; cursor: pointer;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#FF3B30" style="width: 24px; height: 24px;">
+                                    <path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/>
+                                </svg>
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button data-target="addExpenseModal" class="btn modal-trigger" onclick="setCategory('Fun')">Add Expense</button>
 
             <!-- Future You Expenses Section -->
-            <div>
-                <h3>Future You Expenses</h3>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Description</th>
-                            <th>Planned Amount</th>
-                            <th>Spent Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for expense in future_you_expenses %}
-                        <tr id="expense-{{ expense.id }}">
-                            <td>{{ expense.description }}</td>
-                            <td>{{ expense.planned_amount }}</td>
-                            <td class="{% if expense.spent_amount <= expense.planned_amount %}green-text{% else %}red-text{% endif %}">
-                                {{ expense.spent_amount }}
-                            </td>
-                            <td>
-                                <!-- Edit Button (SVG Icon) -->
-                                <button class="btn-icon edit-expense" data-id="{{ expense.id }}" style="background-color: transparent; border: none; cursor: pointer;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#007AFF" style="width: 24px; height: 24px;">
-                                        <path d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152L0 424c0 48.6 39.4 88 88 88l272 0c48.6 0 88-39.4 88-88l0-112c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 112c0 22.1-17.9 40-40 40L88 464c-22.1 0-40-17.9-40-40l0-272c0-22.1 17.9-40 40-40l112 0c13.3 0 24-10.7 24-24s-10.7-24-24-24L88 64z"/>
-                                    </svg>
-                                </button>
-                                <!-- Delete Button (SVG Icon) -->
-                                <button class="btn-icon delete-expense" data-id="{{ expense.id }}" style="background-color: transparent; border: none; cursor: pointer;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#FF3B30" style="width: 24px; height: 24px;">
-                                        <path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l
-                                        l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/>
-                                    </svg>
-                                </button>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                <button data-target="addExpenseModal" class="btn modal-trigger" onclick="setCategory('Future You')">Add Expense</button>
-            </div>
+            <h3>Future You Expenses</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Planned Amount</th>
+                        <th>Spent Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for expense in future_you_expenses %}
+                    <tr id="expense-{{ expense.id }}">
+                        <td>{{ expense.description }}</td>
+                        <td>{{ expense.planned_amount }}</td>
+                        <td class="{% if expense.spent_amount <= expense.planned_amount %}green-text{% else %}red-text{% endif %}">
+                            {{ expense.spent_amount }}
+                        </td>
+                        <td>
+                            <!-- Edit Button (SVG Icon) -->
+                            <button class="btn-icon edit-expense" data-id="{{ expense.id }}" style="background-color: transparent; border: none; cursor: pointer;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#007AFF" style="width: 24px; height: 24px;">
+                                    <path d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-
+                                    <path d="M373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152L0 424c0 48.6 39.4 88 88 88l272 0c48.6 0 88-39.4 88-88l0-112c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 112c0 22.1-17.9 40-40 40L88 464c-22.1 0-40-17.9-40-40l0-272c0-22.1 17.9-40 40-40l112 0c13.3 0 24-10.7 24-24s-10.7-24-24-24L88 64z"/>
+                                </svg>
+                            </button>
+                            <!-- Delete Button (SVG Icon) -->
+                            <button class="btn-icon delete-expense" data-id="{{ expense.id }}" style="background-color: transparent; border: none; cursor: pointer;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#FF3B30" style="width: 24px; height: 24px;">
+                                    <path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/>
+                                </svg>
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button data-target="addExpenseModal" class="btn modal-trigger" onclick="setCategory('Future You')">Add Expense</button>
         </div>
 
         <!-- Sidebar Section -->
-<div class="col s4" style="background-color: #F2F2F7; padding: 20px;">
-    <div class="sidebar-section">
-        <h5 style="text-transform: uppercase; color: #36343B;">INCOME</h5>
-
-        <!-- Doughnut Chart with Income Text -->
-        <div style="position: relative; width: 100%; height: 200px; margin-bottom: 20px;">
-            <canvas id="incomeDoughnutChart"></canvas>
-            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
-                <div style="font-family: 'Montserrat', sans-serif; color: #36343B; font-size: 1.2em;">INCOME</div>
-                <div style="font-family: 'Montserrat', sans-serif; color: #36343B; font-size: 1.5em; font-weight: bold;">£{{ total_income }}</div>
+        <div class="col s12 m4 l4 sidebar-section">
+            <!-- Doughnut Chart with Income Text -->
+            <div style="position: relative; width: 100%; height: 200px; margin-bottom: 20px;">
+                <canvas id="incomeDoughnutChart"></canvas>
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                    <div style="font-family: 'Montserrat', sans-serif; color: #36343B; font-size: 1.2em;">INCOME</div>
+                    <div style="font-family: 'Montserrat', sans-serif; color: #36343B; font-size: 1.5em; font-weight: bold;">£{{ total_income }}</div>
+                </div>
             </div>
-        </div>
 
-        <!-- Tabs Navigation -->
-        <ul class="tabs" style="background-color: #F2F2F7;">
-            <li class="tab col s4"><a class="active" href="#planned-tab">PLANNED</a></li>
-            <li class="tab col s4"><a href="#spent-tab">SPENT</a></li>
-            <li class="tab col s4"><a href="#remaining-tab">REMAINING</a></li>
-        </ul>
+            <!-- Tabs Navigation -->
+            <ul class="tabs" style="background-color: #F2F2F7;">
+                <li class="tab col s4"><a class="active" href="#planned-tab">PLANNED</a></li>
+                <li class="tab col s4"><a href="#spent-tab">SPENT</a></li>
+                <li class="tab col s4"><a href="#remaining-tab">REMAINING</a></li>
+            </ul>
 
-        <!-- Planned Tab Content -->
-        <div id="planned-tab" class="col s12">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Expense Type</th>
-                        <th>Amount</th>
-                        <th>Percentage</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Fundamentals (50%)</td>
-                        <td>£{{ planned_fundamentals }}</td>
-                        <td class="{% if planned_fundamentals_percentage > 50 %}red-text{% else %}green-text{% endif %}">
-                            {{ planned_fundamentals_percentage|floatformat:2 }}%
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Fun (30%)</td>
-                        <td>£{{ planned_fun }}</td>
-                        <td class="{% if planned_fun_percentage > 30 %}red-text{% else %}green-text{% endif %}">
-                            {{ planned_fun_percentage|floatformat:2 }}%
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Future You (20%)</td>
-                        <td>£{{ planned_future_you }}</td>
-                        <td class="{% if planned_future_you_percentage > 20 %}red-text{% else %}green-text{% endif %}">
-                            {{ planned_future_you_percentage|floatformat:2 }}%
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            <!-- Planned Tab Content -->
+            <div id="planned-tab" class="col s12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Expense Type</th>
+                            <th>Amount</th>
+                            <th>Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Fundamentals (50%)</td>
+                            <td>£{{ planned_fundamentals }}</td>
+                            <td class="{% if planned_fundamentals_percentage > 50 %}red-text{% else %}green-text{% endif %}">
+                                {{ planned_fundamentals_percentage|floatformat:2 }}%
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Fun (30%)</td>
+                            <td>£{{ planned_fun }}</td>
+                            <td class="{% if planned_fun_percentage > 30 %}red-text{% else %}green-text{% endif %}">
+                                {{ planned_fun_percentage|floatformat:2 }}%
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Future You (20%)</td>
+                            <td>£{{ planned_future_you }}</td>
+                            <td class="{% if planned_future_you_percentage > 20 %}red-text{% else %}green-text{% endif %}">
+                                {{ planned_future_you_percentage|floatformat:2 }}%
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-        <!-- Spent Tab Content -->
-        <div id="spent-tab" class="col s12">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Expense Type</th>
-                        <th>Amount</th>
-                        <th>Percentage</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Fundamentals (50%)</td>
-                        <td>£{{ spent_fundamentals }}</td>
-                        <td class="{% if fundamentals_percentage > 50 %}red-text{% else %}green-text{% endif %}">
-                            {{ fundamentals_percentage|floatformat:2 }}%
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Fun (30%)</td>
-                        <td>£{{ spent_fun }}</td>
-                        <td class="{% if fun_percentage > 30 %}red-text{% else %}green-text{% endif %}">
-                            {{ fun_percentage|floatformat:2 }}%
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Future You (20%)</td>
-                        <td>£{{ spent_future_you }}</td>
-                        <td class="{% if future_you_percentage > 20 %}red-text{% else %}green-text{% endif %}">
-                            {{ future_you_percentage|floatformat:2 }}%
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            <!-- Spent Tab Content -->
+            <div id="spent-tab" class="col s12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Expense Type</th>
+                            <th>Amount</th>
+                            <th>Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Fundamentals (50%)</td>
+                            <td>£{{ spent_fundamentals }}</td>
+                            <td class="{% if fundamentals_percentage > 50 %}red-text{% else %}green-text{% endif %}">
+                                {{ fundamentals_percentage|floatformat:2 }}%
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Fun (30%)</td>
+                            <td>£{{ spent_fun }}</td>
+                            <td class="{% if fun_percentage > 30 %}red-text{% else %}green-text{% endif %}">
+                                {{ fun_percentage|floatformat:2 }}%
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Future You (20%)</td>
+                            <td>£{{ spent_future_you }}</td>
+                            <td class="{% if future_you_percentage > 20 %}red-text{% else %}green-text{% endif %}">
+                                {{ future_you_percentage|floatformat:2 }}%
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-        <!-- Remaining Tab Content -->
-        <div id="remaining-tab" class="col s12" style="color: #36343B;">
-            <h4>Remaining: £{{ remaining_amount }}</h4>
-            {% if remaining_amount > 0 %}
-            <p>Congrats! You have some money remaining. Why not dedicate this to future you?</p>
-            {% elif remaining_amount < 0 %}
-            <p>Oh no, it seems you have gone over your limit this month. Try spending less next month or earn more.</p>
-            {% else %}
-            <p>Phew, you've made it!</p>
-            {% endif %}
+            <!-- Remaining Tab Content -->
+            <div id="remaining-tab" class="col s12" style="color: #36343B;">
+                <h4>Remaining: £{{ remaining_amount }}</h4>
+                {% if remaining_amount > 0 %}
+                <p>Congrats! You have some money remaining. Why not dedicate this to future you?</p>
+                {% elif remaining_amount < 0 %}
+                <p>Oh no, it seems you have gone over your limit this month. Try spending less next month or earn more.</p>
+                {% else %}
+                <p>Phew, you've made it!</p>
+                {% endif %}
+            </div>
         </div>
     </div>
 </div>
@@ -313,30 +301,6 @@
                                 return tooltipItem.label + ': ' + tooltipItem.raw + '%';
                             }
                         }
-                    },
-                    beforeDraw: function(chart) {
-                        var width = chart.width,
-                            height = chart.height,
-                            ctx = chart.ctx;
-
-                        ctx.restore();
-                        var fontSize = (height / 114).toFixed(2);
-                        ctx.font = fontSize + "em Montserrat";
-                        ctx.textBaseline = "middle";
-
-                        var text = "INCOME",
-                            textX = Math.round((width - ctx.measureText(text).width) / 2),
-                            textY = height / 2.2;
-
-                        ctx.fillText(text, textX, textY);
-
-                        ctx.font = (fontSize * 1.5) + "em Montserrat";  // Larger font for the amount
-                        var amountText = "£" + {{ total_income }},
-                            amountTextX = Math.round((width - ctx.measureText(amountText).width) / 2),
-                            amountTextY = height / 1.6;
-
-                        ctx.fillText(amountText, amountTextX, amountTextY);
-                        ctx.save();
                     }
                 }
             }
@@ -348,39 +312,31 @@
     });
 </script>
 
-    <!-- Add Income Modal -->
-    <div id="addIncomeModal" class="modal">
-        <div class="modal-content">
-            <h4>Add Income</h4>
-            <form method="POST" action="{% url 'dashboard' %}" id="incomeForm">
-                {% csrf_token %}
-                {{ income_form.as_p }}
-                <button type="submit" name="income_submit" class="btn">Add Income</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Add Expense Modal -->
-    <div id="addExpenseModal" class="modal">
-        <div class="modal-content">
-            <h4>Add Expense</h4>
-            <form method="POST" action="{% url 'dashboard' %}" id="expenseForm">
-                {% csrf_token %}
-                <input type="hidden" id="categoryInput" name="category" value="">
-                {{ expense_form.description }}
-                {{ expense_form.planned_amount }}
-                {{ expense_form.spent_amount }}
-                <button type="submit" name="expense_submit" class="btn">Add Expense</button>
-            </form>
-        </div>
+<!-- Add Income Modal -->
+<div id="addIncomeModal" class="modal">
+    <div class="modal-content">
+        <h4>Add Income</h4>
+        <form method="POST" action="{% url 'dashboard' %}" id="incomeForm">
+            {% csrf_token %}
+            {{ income_form.as_p }}
+            <button type="submit" name="income_submit" class="btn">Add Income</button>
+        </form>
     </div>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var elems = document.querySelectorAll('.tabs');
-        var instances = M.Tabs.init(elems);
-    });
-</script>
+<!-- Add Expense Modal -->
+<div id="addExpenseModal" class="modal">
+    <div class="modal-content">
+        <h4>Add Expense</h4>
+        <form method="POST" action="{% url 'dashboard' %}" id="expenseForm">
+            {% csrf_token %}
+            <input type="hidden" id="categoryInput" name="category" value="">
+            {{ expense_form.description }}
+            {{ expense_form.planned_amount }}
+            {{ expense_form.spent_amount }}
+            <button type="submit" name="expense_submit" class="btn">Add Expense</button>
+        </form>
+    </div>
+</div>
 
 {% endblock %}

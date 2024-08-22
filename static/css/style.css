@@ -54,8 +54,7 @@ html {
     margin-right: 20px;
 }
 
-/* Add or update these styles */
-
+/* Sidebar Section */
 .sidebar-section {
     text-align: center;
 }
@@ -78,6 +77,7 @@ html {
     background-color: #36343B;
 }
 
+/* Canvas Container for Doughnut Chart */
 .canvas-container {
     position: relative;
     width: 100%;
@@ -101,6 +101,7 @@ html {
 .center-text div {
     font-family: 'Montserrat', sans-serif;
     color: #36343B;
+    font-weight: bold;
 }
 
 /* Navbar Styles */
@@ -125,4 +126,26 @@ html {
     width: 90%;
     margin: 0 auto;
     padding: 20px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+    }
+
+    .sidebar-section {
+        order: 1;
+        width: 100%;
+    }
+
+    .income-expense-section {
+        order: 2;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .tabs .tab a {
+        font-size: 14px;
+    }
 }
