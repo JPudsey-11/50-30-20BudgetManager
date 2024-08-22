@@ -160,7 +160,7 @@
         <!-- Sidebar Section -->
         <div class="col s12 m4 l4 sidebar-section">
             <!-- Doughnut Chart with Income Text -->
-            <div style="position: relative; width: 100%; height: 200px; margin-bottom: 20px;">
+            <div style="display: flex; position: relative; width: 100%; height: 200px; margin-bottom: 20px; justify-content: center;">
                 <canvas id="incomeDoughnutChart"></canvas>
                 <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
                     <div style="font-family: 'Montserrat', sans-serif; color: #36343B; font-size: 1.2em;">INCOME</div>
@@ -257,10 +257,10 @@
                 datasets: [{
                     label: 'Income Distribution',
                     data: [
-                        {{ planned_fundamentals_percentage }},
-                        {{ planned_fun_percentage }},
-                        {{ planned_future_you_percentage }},
-                        100 - ({{ planned_fundamentals_percentage }} + {{ planned_fun_percentage }} + {{ planned_future_you_percentage }})
+                        { planned_fundamentals_percentage },
+                        { planned_fun_percentage },
+                        { planned_future_you_percentage },
+                        100 - ({ planned_fundamentals_percentage } + { planned_fun_percentage } + { planned_future_you_percentage })
                     ],
                     backgroundColor: [
                         '#7C3E71',   // Fundamentals color

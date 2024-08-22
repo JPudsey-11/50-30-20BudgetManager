@@ -87,5 +87,50 @@ html, body {
 .supporting-link {
     color: #007AFF;
     text-decoration: underline;
-    font-size: 1rem​
+    font-size: 1rem;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+    }
+
+    .sidebar-section {
+        order: 1;
+        width: 100%;
+    }
+
+    .income-expense-section {
+        order: 2;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .tabs .tab a {
+        font-size: 14px;
+    }
+
+    /* Additional responsive adjustments for the hero section */
+    .hero-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .text-content {
+        max-width: 100%;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .cta-button, .supporting-link {
+        width: 100%;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .image-content img {
+        width: 100%;
+        height: auto;
+    }
 }
