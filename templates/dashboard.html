@@ -301,6 +301,8 @@
         <h4>Add Income</h4>
         <form method="POST" action="{% url 'dashboard' %}" id="incomeForm">
             {% csrf_token %}
+            <!-- Hidden input for income ID -->
+            <input type="hidden" id="income-id" name="income_id">
             {{ income_form.as_p }}
             <button type="submit" name="income_submit" class="btn">Add Income</button>
         </form>
@@ -313,6 +315,8 @@
         <h4>Add Expense</h4>
         <form method="POST" action="{% url 'dashboard' %}" id="expenseForm">
             {% csrf_token %}
+            <!-- Hidden input for expense ID -->
+            <input type="hidden" id="expense-id" name="expense_id">
             <input type="hidden" id="categoryInput" name="category" value="">
             {{ expense_form.description }}
             {{ expense_form.planned_amount }}
