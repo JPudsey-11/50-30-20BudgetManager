@@ -81,16 +81,14 @@ html {
 .canvas-container {
     display: flex;
     justify-content: center;
+    align-items: center;
     position: relative;
-    width: 100%;
     height: 200px;
     margin-bottom: 20px;
 }
 
 .canvas-container canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
 }
 
 .canvas-container .center-text {
@@ -99,6 +97,9 @@ html {
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    color: #36343B;
+    font-weight: bold;
 }
 
 .center-text div {
