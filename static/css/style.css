@@ -153,3 +153,17 @@ html {
         font-size: 14px;
     }
 }
+
+/* Custom Modal Styles - Overrides Materialize */
+.modal-content h4 {
+    text-align: center;
+    font-weight: bold; /* Optional: Makes the title bold */
+}
+
+.modal-content form {
+    text-align: left;
+}
+
+.modal-content {
+    padding: 24px; /* Adjust padding if needed */
+}
