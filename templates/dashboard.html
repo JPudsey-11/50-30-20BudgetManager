@@ -160,13 +160,14 @@
         <!-- Sidebar Section -->
         <div class="col s12 m4 l4 sidebar-section">
             <!-- Doughnut Chart with Income Text -->
-            <div style="display: flex; position: relative; width: 100%; height: 200px; margin-bottom: 20px; justify-content: center;">
-                <canvas id="incomeDoughnutChart"></canvas>
-                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+            <div class="chart-container" style="position: relative; width: 100%; height: 200px; margin-bottom: 20px; display: flex; justify-content: center;">
+                <canvas id="incomeDoughnutChart" style="width: 100%; height: auto;"></canvas>
+                <div class="chart-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
                     <div style="font-family: 'Montserrat', sans-serif; color: #36343B; font-size: 1.2em;">INCOME</div>
                     <div style="font-family: 'Montserrat', sans-serif; color: #36343B; font-size: 1.5em; font-weight: bold;">£{{ total_income }}</div>
                 </div>
             </div>
+        </div>
 
             <!-- Tabs Navigation -->
             <ul class="tabs" style="background-color: #F2F2F7;">
