@@ -7,6 +7,9 @@ from .forms import IncomeForm, ExpenseForm, CustomUserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 
+def landing_page(request):
+    return render(request, 'landing-page.html')
+
 @login_required
 def dashboard(request):
     # Fetch incomes and expenses
