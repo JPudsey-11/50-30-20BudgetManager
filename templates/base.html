@@ -14,7 +14,7 @@
     <!-- Navbar -->
     <nav>
         <div class="nav-wrapper">
-            <!-- <a href="{% url 'home' %}" class="brand-logo left">Your Logo</a> -->
+            <a href="/" class="brand-logo left">Your Logo</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="{% url 'guide' %}" target="_blank" class="{% if request.path == '/guide/' %}active{% endif %}">Guide</a></li>
                 {% if user.is_authenticated %}
