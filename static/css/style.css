@@ -77,11 +77,14 @@ html {
     background-color: #36343B;
 }
 
-/* Canvas Container for Doughnut Chart */
+/* Center the doughnut chart within the sidebar */
 .canvas-container {
+    display: flex;
+    justify-content: center;
     position: relative;
     width: 100%;
     height: 200px;
+    margin-bottom: 20px;
 }
 
 .canvas-container canvas {
