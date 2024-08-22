@@ -44,6 +44,7 @@ def dashboard(request):
             expense_form = ExpenseForm(request.POST)
 
         if expense_form.is_valid():
+            print(expense_form.cleaned_data['category'])
             expense = expense_form.save(commit=False)
             expense.user = request.user
             expense.save()
