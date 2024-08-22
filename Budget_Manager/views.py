@@ -15,44 +15,66 @@ def dashboard(request):
     fundamentals_expenses = Expense.objects.filter(user=request.user, category='Fundamentals')
     future_you_expenses = Expense.objects.filter(user=request.user, category='Future You')
 
-    # Calculate total income
-    total_income = incomes.aggregate(total=Sum('received_amount'))['total'] or 0
+    # Handle Income Form Submission
+    if request.method == 'POST' and 'income_submit' in request.POST:
+        income_id = request.POST.get('income_id')
+        if income_id:
+            # Editing existing income
+            income = get_object_or_404(Income, id=income_id, user=request.user)
+            income_form = IncomeForm(request.POST, instance=income)
+        else:
+            # Creating new income
+            income_form = IncomeForm(request.POST)
 
-    # Calculate planned and spent amounts for each category
+        if income_form.is_valid():
+            income = income_form.save(commit=False)
+            income.user = request.user
+            income.save()
+            return redirect('dashboard')
+
+    # Handle Expense Form Submission
+    elif request.method == 'POST' and 'expense_submit' in request.POST:
+        expense_id = request.POST.get('expense_id')
+        if expense_id:
+            # Editing existing expense
+            expense = get_object_or_404(Expense, id=expense_id, user=request.user)
+            expense_form = ExpenseForm(request.POST, instance=expense)
+        else:
+            # Creating new expense
+            expense_form = ExpenseForm(request.POST)
+
+        if expense_form.is_valid():
+            expense = expense_form.save(commit=False)
+            expense.user = request.user
+            expense.save()
+            return redirect('dashboard')
+
+    else:
+        income_form = IncomeForm()
+        expense_form = ExpenseForm()
+
+    # Calculate totals and percentages
+    total_income = incomes.aggregate(total=Sum('received_amount'))['total'] or 0
     planned_fundamentals = fundamentals_expenses.aggregate(total=Sum('planned_amount'))['total'] or 0
     spent_fundamentals = fundamentals_expenses.aggregate(total=Sum('spent_amount'))['total'] or 0
-
     planned_fun = fun_expenses.aggregate(total=Sum('planned_amount'))['total'] or 0
     spent_fun = fun_expenses.aggregate(total=Sum('spent_amount'))['total'] or 0
-
     planned_future_you = future_you_expenses.aggregate(total=Sum('planned_amount'))['total'] or 0
     spent_future_you = future_you_expenses.aggregate(total=Sum('spent_amount'))['total'] or 0
 
-    # Calculate remaining amount
     total_spent = spent_fundamentals + spent_fun + spent_future_you
     remaining_amount = total_income - total_spent
 
-    # Calculate percentages of income spent on each category
     def calculate_percentage(amount):
         return (amount / total_income * 100) if total_income > 0 else 0
 
-    fundamentals_percentage = calculate_percentage(spent_fundamentals)
-    fun_percentage = calculate_percentage(spent_fun)
-    future_you_percentage = calculate_percentage(spent_future_you)
-
-    # Calculate percentages of planned amounts
-    planned_fundamentals_percentage = calculate_percentage(planned_fundamentals)
-    planned_fun_percentage = calculate_percentage(planned_fun)
-    planned_future_you_percentage = calculate_percentage(planned_future_you)
-
-    # Create the context
     context = {
         'incomes': incomes,
         'fun_expenses': fun_expenses,
         'fundamentals_expenses': fundamentals_expenses,
         'future_you_expenses': future_you_expenses,
-        'income_form': IncomeForm(),
-        'expense_form': ExpenseForm(),
+        'income_form': income_form,
+        'expense_form': expense_form,
         'total_income': total_income,
         'planned_fundamentals': planned_fundamentals,
         'spent_fundamentals': spent_fundamentals,
@@ -61,12 +83,12 @@ def dashboard(request):
         'planned_future_you': planned_future_you,
         'spent_future_you': spent_future_you,
         'remaining_amount': remaining_amount,
-        'fundamentals_percentage': fundamentals_percentage,
-        'fun_percentage': fun_percentage,
-        'future_you_percentage': future_you_percentage,
-        'planned_fundamentals_percentage': planned_fundamentals_percentage,
-        'planned_fun_percentage': planned_fun_percentage,
-        'planned_future_you_percentage': planned_future_you_percentage,
+        'fundamentals_percentage': calculate_percentage(spent_fundamentals),
+        'fun_percentage': calculate_percentage(spent_fun),
+        'future_you_percentage': calculate_percentage(spent_future_you),
+        'planned_fundamentals_percentage': calculate_percentage(planned_fundamentals),
+        'planned_fun_percentage': calculate_percentage(planned_fun),
+        'planned_future_you_percentage': calculate_percentage(planned_future_you),
     }
 
     return render(request, 'dashboard.html', context)
@@ -95,6 +117,7 @@ def get_income(request, income_id):
     data = {
         'success': True,
         'income': {
+            'id': income.id,  # Add this line to pass the income id to the front-end
             'source': income.source,
             'planned_amount': str(income.planned_amount),
             'received_amount': str(income.received_amount),
@@ -108,6 +131,7 @@ def get_expense(request, expense_id):
     data = {
         'success': True,
         'expense': {
+            'id': expense.id,  # Add this line to pass the expense id to the front-end
             'description': expense.description,
             'planned_amount': str(expense.planned_amount),
             'spent_amount': str(expense.spent_amount),
