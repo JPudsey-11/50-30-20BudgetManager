@@ -27,6 +27,21 @@
         </div>
     </nav>
 
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="text-content">
+                <h1>Simplify Your Budgeting with the 50/30/20 Rule</h1>
+                <p>Easily manage your finances by categorizing your expenses into three simple categories: Needs, Wants, and Savings/Debt.</p>
+                <a href="{% url 'signup' %}" class="cta-button">Start Budgeting Today</a>
+                <a href="{% url 'guide' %}" class="supporting-link">Learn More About the 50/30/20 Rule</a>
+            </div>
+            <div class="image-content">
+                <img src="{% static 'images/hero-image.png' %}" alt="Budgeting Image">
+            </div>
+        </div>
+    </section>
+
     <!-- Main Content -->
     <div class="custom-container">
         {% block content %}

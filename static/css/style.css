@@ -1,9 +1,11 @@
 /* Importing Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Ultra&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap');
 
 /* General Styles */
-html {
+html, body {
     font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
     background-color: #FFFFFF;
 }
 
@@ -24,90 +26,6 @@ html {
     color: green;
 }
 
-/* Header Container */
-.header-container {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.header-container h2 {
-    display: inline-block;
-    margin-right: 20px;
-}
-
-.header-container a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-/* Main Container */
-.main-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding-top: 20px;
-}
-
-/* Left Section (Income and Expense Lists) */
-.income-expense-section {
-    flex: 2;
-    margin-right: 20px;
-}
-
-/* Sidebar Section */
-.sidebar-section {
-    text-align: center;
-}
-
-.sidebar-section h5, .sidebar-section h3 {
-    margin: 0 0 10px;
-    color: #36343B;
-}
-
-.tabs .tab a {
-    color: #36343B;
-}
-
-.tabs .tab a.active {
-    color: #007AFF;
-    background-color: #F2F2F7;
-}
-
-.tabs .indicator {
-    background-color: #36343B;
-}
-
-/* Center the doughnut chart within the sidebar */
-.canvas-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    height: 200px;
-    margin-bottom: 20px;
-}
-
-.canvas-container canvas {
-    position: relative;
-}
-
-.canvas-container .center-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    font-family: 'Montserrat', sans-serif;
-    color: #36343B;
-    font-weight: bold;
-}
-
-.center-text div {
-    font-family: 'Montserrat', sans-serif;
-    color: #36343B;
-    font-weight: bold;
-}
-
 /* Navbar Styles */
 .nav-wrapper {
     background-color: #F2F2F7; /* Navbar background */
@@ -125,45 +43,48 @@ html {
     color: #007AFF; /* Active link color */
 }
 
-.custom-container {
-    max-width: 1440px; /* Adjust this value as needed */
-    width: 90%;
-    margin: 0 auto;
-    padding: 20px;
+/* Hero Section Styles */
+.hero-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f2f2f7;
+    padding: 40px;
 }
 
-/* Responsive Design */
-@media screen and (max-width: 768px) {
-    .main-container {
-        flex-direction: column;
-    }
-
-    .sidebar-section {
-        order: 1;
-        width: 100%;
-    }
-
-    .income-expense-section {
-        order: 2;
-        width: 100%;
-        margin-top: 20px;
-    }
-
-    .tabs .tab a {
-        font-size: 14px;
-    }
+.hero-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 
-/* Custom Modal Styles - Overrides Materialize */
-.modal-content h4 {
-    text-align: center;
-    font-weight: bold; /* Optional: Makes the title bold */
+.text-content {
+    max-width: 50%;
 }
 
-.modal-content form {
-    text-align: left;
+.text-content h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #333;
 }
 
-.modal-content {
-    padding: 24px; /* Adjust padding if needed */
+.text-content p {
+    font-size: 1.25rem;
+    color: #555;
+    margin: 20px 0;
 }
+
+.cta-button {
+    background-color: #007AFF;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+.supporting-link {
+    color: #007AFF;
+    text-decoration: underline;
+    font-size: 1rem​⬤
