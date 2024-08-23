@@ -122,8 +122,48 @@ Remaing Tab
 
 ## Agile Methodology
 
-When developing this app an agile approach has been taken throughout this project. I adapted and agile methodology to ensure an efficient and continual progress was being made. I broke each instance down into smaller user stories so they were refined into more manageable tasks therefore each user story has different acceptance criterias. The link to the kanban board for the User Stories can be found here.
+When developing this app an agile approach has been taken throughout this project. I adapted and agile methodology to ensure an efficient and continual progress was being made. I broke each instance down into smaller user stories so they were refined into more manageable tasks therefore each user story has different acceptance criterias. The link to the kanban board for the User Stories can be found [here](https://github.com/users/JPudsey-11/projects/4/views/1).
 
+## Agile Methodology
+
+By utilising the MoSCoW prioritisation method in this project I was able to categorise my tasks into:
+
+# Must Haves
+
+- User Authentication (Registration, Log In)
+- Income and expense tracking ( Income Input, Expense Categorisation, Expense input)
+- Budget Allocation (50:30:20 / Shows you the goal 50:30:20 / The actual amount (% & £) for that month.
+- Clean, intuitive interface
+
+
+# Should Haves
+
+- Piechart Visualisation
+- Basic Settings and customisation.
+
+# Could Haves
+
+- Bar Chart for expenses
+- Connection to different bank accounts
+- Filter by week, month or year.
+
+## Kanban Board
+![Desktop / Spent Tab](static/images/Kanban-Board.png)
+
+The Kanban Board provided a visual overview of the project's progress and facilitated efficient task management. It was organised into the following sections:
+- Todo: This section contained all the tasks that needed to be done for the project to be completed and done.
+- In Progress: The in progress section indicated active tasks that were being worked on.
+- Done: The done section are the tasks that were completed successfully.
+
+## User Stories 
+
+User stories played a vital role in the development process, it helped ensure the features were inline with the users needs, all of the user needs were written out onto the kanban project board, which helped guide tasks being implemented and what to prioritse.
+
+## Task Management
+
+In addition to tracking user stories, the kanban board functioned as a detailed task list. I used it to break down user stories into smaller, actionable tasks, ensuring clear and manageable objectives for development. This granular approach allowed for efficient progress tracking. By applying agile principles and effectively utilising the kanban board, the development of Penny Pinchers remained focused, adaptable, and responsive to changing requirements, resulting in a more robust and user-centered Django expense application.
+
+Features 
 
 ## Testing
 - Document manual and automated testing procedures.
