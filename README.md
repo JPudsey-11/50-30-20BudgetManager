@@ -1,4 +1,12 @@
-# 50:30:20 Budget Manager
+# Welcome to The 50:30:20 Budget Manager
+
+Simplify Your Budgeting with the 50/30/20 Rule
+Easily manage your finances by categorizing your expenses into three simple categories: Needs, Wants, and Savings/Debt.
+
+link to Live site - https://budgetmanager-50-30-20-82c8070c76df.herokuapp.com/
+
+![Alt text](images/budgeting_image.png)
+
 
 ## Problem Statement
 Managing personal finances effectively can be challenging without a clear budgeting framework. Many individuals struggle to balance essential expenses, discretionary spending, and long-term savings, leading to financial stress. There is a need for a simple tool that helps users allocate their income efficiently.
@@ -59,7 +67,11 @@ The 50:30:20 Budget Manager app aims to provide a straightforward tool for manag
 - As a user, I want to adjust my income so that my budget reflects any changes in my earnings.
 
 ## Database Structure
-(Include your database structure diagram here)
+Basic Data Model 
+
+Data Model (with planned/received amount, Planned/spent amount, target amount/current amount ) 
+
+
 
 ## Competitor Research
 (Include your competitor research screenshots and descriptions here)
