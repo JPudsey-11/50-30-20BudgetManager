@@ -5,7 +5,7 @@ Easily manage your finances by categorizing your expenses into three simple cate
 
 link to Live site - https://budgetmanager-50-30-20-82c8070c76df.herokuapp.com/
 
-![Alt text](images/budgeting_image.png)
+![Alt text](static/images/budgeting_image.png)
 
 
 ## Problem Statement
