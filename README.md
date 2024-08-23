@@ -5,7 +5,7 @@ Easily manage your finances by categorizing your expenses into three simple cate
 
 link to Live site - https://budgetmanager-50-30-20-82c8070c76df.herokuapp.com/
 
-![Alt text](static/images/budgeting_image.png)
+![budgeting_image_piggy_bank](static/images/budgeting_image.png)
 
 
 ## Problem Statement
@@ -71,10 +71,59 @@ Basic Data Model
 
 Data Model (with planned/received amount, Planned/spent amount, target amount/current amount ) 
 
+![Basic data model](static/images/data-model/basic-data-model.png)
+
+![Improved data model](static/images/data-model/improved-data-model.png)
 
 
 ## Competitor Research
 (Include your competitor research screenshots and descriptions here)
+
+![Competitor Research](static/images/competitor-research.png)
+
+## User Flow 
+
+![User Flow](static/images/user-flow.png)
+
+## User Experience / Wireframes
+
+Login / Sign up 
+
+![Logged In](static/images/Wireframes/Landing_page_(Logged_In.png))
+
+![Loggged Out](static/images/Wireframes/Landing_page_(Logged_out).png)
+
+![Login](static/images/Wireframes/Login.png)
+
+![Sign Up](static/images/Wireframes/Sign-up.png)
+
+Desktop 
+
+Planned tab
+![Desktop / Planned Tab](static/images/Wireframes/Desktop_Planned.png)
+
+Spent Tab 
+![Desktop / Spent Tab](static/images/Wireframes/Desktop_Spent.png)
+
+Remaing Tab
+![Desktop / Spent Tab](static/images/Wireframes/Desktop_Remaining.png)
+
+
+Mobile
+
+Planned tab
+![Desktop / Planned Tab](static/images/Wireframes/Mobile_Planned.png)
+
+Spent Tab 
+![Desktop / Spent Tab](static/images/Wireframes/Mobile_Spent.png)
+
+Remaing Tab
+![Desktop / Spent Tab](static/images/Wireframes/Mobile_Remaining.png)
+
+## Agile Methodology
+
+When developing this app an agile approach has been taken throughout this project. I adapted and agile methodology to ensure an efficient and continual progress was being made. I broke each instance down into smaller user stories so they were refined into more manageable tasks therefore each user story has different acceptance criterias. The link to the kanban board for the User Stories can be found here.
+
 
 ## Testing
 - Document manual and automated testing procedures.

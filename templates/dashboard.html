@@ -245,10 +245,10 @@
                 datasets: [{
                     label: 'Income Distribution',
                     data: [
-                        { planned_fundamentals_percentage },
-                        { planned_fun_percentage },
-                        { planned_future_you_percentage },
-                        100 - ({ planned_fundamentals_percentage } + { planned_fun_percentage } + { planned_future_you_percentage })
+                        {{ planned_fundamentals_percentage|default:"0" }},
+                        {{ planned_fun_percentage|default:"0" }},
+                        {{ planned_future_you_percentage|default:"0" }},
+                        100 - ({{ planned_fundamentals_percentage|default:"0" }} + {{ planned_fun_percentage|default:"0" }} + {{ planned_future_you_percentage|default:"0" }})
                     ],
                     backgroundColor: [
                         '#7C3E71',   // Fundamentals color
