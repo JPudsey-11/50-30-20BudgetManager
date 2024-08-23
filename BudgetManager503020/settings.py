@@ -105,5 +105,5 @@ CSRF_TRUSTED_ORIGINS = [
     'https://budgetmanager-50-30-20-82c8070c76df.herokuapp.com',
 ]
 
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'landing-page'
