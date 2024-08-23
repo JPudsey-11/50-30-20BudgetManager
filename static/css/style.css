@@ -118,15 +118,40 @@ html, body {
     max-width: 68%;
 }
 
-/* Doughnut Chart */
+/* Doughnut Chart Container */
 .chart-container {
     position: relative;
-    width: 100%; 
-    max-width: 300px; /* Adjust the max width to a more suitable size */
-    height: auto; /* Maintain aspect ratio */
-    margin: 0 auto 20px auto; /* Center and add bottom margin */
+    width: 100%; /* Ensure it scales properly */
+    max-width: 400px; /* Adjust to your desired size */
+    margin: 0 auto 20px auto; /* Center the chart */
     display: flex;
     justify-content: center;
+}
+
+/* Chart Overlay */
+.chart-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+/* Chart Text */
+.chart-text div {
+    font-family: 'Montserrat', sans-serif;
+    color: #36343B;
+}
+
+/* INCOME Text */
+.chart-text div:first-child {
+    font-size: 1.2em;
+}
+
+/* Income Amount */
+.chart-income-amount {
+    font-size: 1.5em;
+    font-weight: bold;
 }
 
 /* Sidebar Content */
