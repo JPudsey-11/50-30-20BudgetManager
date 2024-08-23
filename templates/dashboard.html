@@ -141,94 +141,95 @@
             <button data-target="addExpenseModal" class="btn modal-trigger" onclick="setCategory('Future You')">Add Expense</button>
         </div>
 
-        <!-- Sidebar Section -->
-        <div class="col s12 m4 l4 sidebar-section">
-            <div class="sidebar-content">
-                <!-- Doughnut Chart with Income Text -->
-                <div class="chart-container">
-                    <canvas id="incomeDoughnutChart"></canvas>
-                    <div class="chart-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
-                        <div style="font-family: 'Montserrat', sans-serif; color: #36343B; font-size: 1.2em;">INCOME</div>
-                        <div style="font-family: 'Montserrat', sans-serif; color: #36343B; font-size: 1.5em; font-weight: bold;">£{{ total_income }}</div>
-                    </div>
-                </div>
+       <!-- Sidebar Section -->
+<div class="col s12 m4 l4 sidebar-section">
+    <div class="sidebar-content">
+        <!-- Doughnut Chart with Income Text -->
+        <div class="chart-container">
+            <canvas id="incomeDoughnutChart"></canvas>
+            <div class="chart-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                <div style="font-family: 'Montserrat', sans-serif; color: #36343B; font-size: 1.2em;">INCOME</div>
+                <div style="font-family: 'Montserrat', sans-serif; color: #36343B; font-size: 1.5em; font-weight: bold;">£{{ total_income }}</div>
+            </div>
+        </div>
 
-                <!-- Tabs Navigation -->
-                <ul class="tabs" style="background-color: #F2F2F7;">
-                    <li class="tab col s4"><a class="active" href="#planned-tab">PLANNED</a></li>
-                    <li class="tab col s4"><a href="#spent-tab">SPENT</a></li>
-                    <li class="tab col s4"><a href="#remaining-tab">REMAINING</a></li>
-                </ul>
+        <!-- Tabs Navigation -->
+        <ul class="tabs" style="background-color: #F2F2F7;">
+            <li class="tab col s4"><a class="active" href="#planned-tab">PLANNED</a></li>
+            <li class="tab col s4"><a href="#spent-tab">SPENT</a></li>
+            <li class="tab col s4"><a href="#remaining-tab">REMAINING</a></li>
+        </ul>
 
-                <!-- Planned Tab Content -->
-                <div id="planned-tab" class="col s12">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td>Fundamentals (50%)</td>
-                                <td>£{{ planned_fundamentals }}</td>
-                                <td class="{% if planned_fundamentals_percentage > 50 %}red-text{% else %}green-text{% endif %}">
-                                    {{ planned_fundamentals_percentage|floatformat:2 }}%
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Fun (30%)</td>
-                                <td>£{{ planned_fun }}</td>
-                                <td class="{% if planned_fun_percentage > 30 %}red-text{% else %}green-text{% endif %}">
-                                    {{ planned_fun_percentage|floatformat:2 }}%
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Future You (20%)</td>
-                                <td>£{{ planned_future_you }}</td>
-                                <td class="{% if planned_future_you_percentage > 20 %}red-text{% else %}green-text{% endif %}">
-                                    {{ planned_future_you_percentage|floatformat:2 }}%
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+        <!-- Planned Tab Content -->
+        <div id="planned-tab" class="col s12 tab-content">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Fundamentals (50%)</td>
+                        <td>£{{ planned_fundamentals }}</td>
+                        <td class="{% if planned_fundamentals_percentage > 50 %}red-text{% else %}green-text{% endif %}">
+                            {{ planned_fundamentals_percentage|floatformat:2 }}%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Fun (30%)</td>
+                        <td>£{{ planned_fun }}</td>
+                        <td class="{% if planned_fun_percentage > 30 %}red-text{% else %}green-text{% endif %}">
+                            {{ planned_fun_percentage|floatformat:2 }}%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Future You (20%)</td>
+                        <td>£{{ planned_future_you }}</td>
+                        <td class="{% if planned_future_you_percentage > 20 %}red-text{% else %}green-text{% endif %}">
+                            {{ planned_future_you_percentage|floatformat:2 }}%
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-                <!-- Spent Tab Content -->
-                <div id="spent-tab" class="col s12">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td>Fundamentals (50%)</td>
-                                <td>£{{ spent_fundamentals }}</td>
-                                <td class="{% if fundamentals_percentage > 50 %}red-text{% else %}green-text{% endif %}">
-                                    {{ fundamentals_percentage|floatformat:2 }}%
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Fun (30%)</td>
-                                <td>£{{ spent_fun }}</td>
-                                <td class="{% if fun_percentage > 30 %}red-text{% else %}green-text{% endif %}">
-                                    {{ fun_percentage|floatformat:2 }}%
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Future You (20%)</td>
-                                <td>£{{ spent_future_you }}</td>
-                                <td class="{% if future_you_percentage > 20 %}red-text{% else %}green-text{% endif %}">
-                                    {{ future_you_percentage|floatformat:2 }}%
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+        <!-- Spent Tab Content -->
+        <div id="spent-tab" class="col s12 tab-content">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Fundamentals (50%)</td>
+                        <td>£{{ spent_fundamentals }}</td>
+                        <td class="{% if fundamentals_percentage > 50 %}red-text{% else %}green-text{% endif %}">
+                            {{ fundamentals_percentage|floatformat:2 }}%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Fun (30%)</td>
+                        <td>£{{ spent_fun }}</td>
+                        <td class="{% if fun_percentage > 30 %}red-text{% else %}green-text{% endif %}">
+                            {{ fun_percentage|floatformat:2 }}%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Future You (20%)</td>
+                        <td>£{{ spent_future_you }}</td>
+                        <td class="{% if future_you_percentage > 20 %}red-text{% else %}green-text{% endif %}">
+                            {{ future_you_percentage|floatformat:2 }}%
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
                 <!-- Remaining Tab Content -->
-                <div id="remaining-tab" class="col s12" style="color: #36343B;">
-                    <h4>Remaining: £{{ remaining_amount }}</h4>
-                    {% if remaining_amount > 0 %}
-                    <p>Congrats! You have some money remaining. Why not dedicate this to future you?</p>
-                    {% elif remaining_amount < 0 %}
-                    <p>Oh no, it seems you have gone over your limit this month. Try spending less next month or earn more.</p>
-                    {% else %}
-                    <p>Phew, you've made it!</p>
-                    {% endif %}
-                </div>
+                <!-- Remaining Tab Content -->
+        <div id="remaining-tab" class="col s12 tab-content" style="color: #36343B;">
+            <h4>Remaining: £{{ remaining_amount }}</h4>
+            {% if remaining_amount > 0 %}
+            <p>Congrats! You have some money remaining. Why not dedicate this to future you?</p>
+            {% elif remaining_amount < 0 %}
+            <p>Oh no, it seems you have gone over your limit this month. Try spending less next month or earn more.</p>
+            {% else %}
+            <p>Phew, you've made it!</p>
+            {% endif %}
+        </div>
             </div>
         </div>
     </div>

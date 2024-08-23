@@ -126,14 +126,22 @@ html, body {
     margin-bottom: 20px;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 /* Sidebar Content */
 .sidebar-content {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
+    align-items: center;
     height: 100%;
+}
+
+/* Tab Content */
+.tab-content {
+    padding: 15px;
+    width: 100%; /* Ensures that the tab content spans the full width of the sidebar */
 }
 
 /* Responsive Design */
