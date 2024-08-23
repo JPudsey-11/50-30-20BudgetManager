@@ -8,6 +8,9 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 
 def landing_page(request):
+    # If user is authenticated, redirect to dashboard
+    if request.user.is_authenticated:
+        return redirect('dashboard')
     return render(request, 'landing-page.html')
 
 @login_required
@@ -47,7 +50,6 @@ def dashboard(request):
             expense_form = ExpenseForm(request.POST)
 
         if expense_form.is_valid():
-            print(expense_form.cleaned_data['category'])
             expense = expense_form.save(commit=False)
             expense.user = request.user
             expense.save()
@@ -121,7 +123,7 @@ def get_income(request, income_id):
     data = {
         'success': True,
         'income': {
-            'id': income.id,  # Add this line to pass the income id to the front-end
+            'id': income.id,
             'source': income.source,
             'planned_amount': str(income.planned_amount),
             'received_amount': str(income.received_amount),
@@ -135,7 +137,7 @@ def get_expense(request, expense_id):
     data = {
         'success': True,
         'expense': {
-            'id': expense.id,  # Add this line to pass the expense id to the front-end
+            'id': expense.id,
             'description': expense.description,
             'planned_amount': str(expense.planned_amount),
             'spent_amount': str(expense.spent_amount),
