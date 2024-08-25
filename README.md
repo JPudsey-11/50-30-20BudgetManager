@@ -163,7 +163,7 @@ User stories played a vital role in the development process, it helped ensure th
 
 In addition to tracking user stories, the kanban board functioned as a detailed task list. I used it to break down user stories into smaller, actionable tasks, ensuring clear and manageable objectives for development. This granular approach allowed for efficient progress tracking. By applying agile principles and effectively utilising the kanban board, the development of Penny Pinchers remained focused, adaptable, and responsive to changing requirements, resulting in a more robust and user-centered Django expense application.
 
-Features 
+## Features 
 
 ## Testing
 - Document manual and automated testing procedures.
