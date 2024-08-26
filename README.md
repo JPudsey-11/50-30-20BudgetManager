@@ -165,13 +165,148 @@ In addition to tracking user stories, the kanban board functioned as a detailed 
 
 ## Features 
 
+Login / Sign up 
+
+![Login](static/features/login.png)
+![Sign Up](static/features/sign-up.png)  
+
+Landing Page 
+![landing Page](static/features/landing-page.png)  
+
+Dashboard
+
+![Dashboard](static/features/dashboard.png)  
+
+Guide
+
+![Guide](static/features/guide-1.png)  
+![Guide](static/features/guide-2.png) 
+![Guide](static/features/guide-3.png)   
+
+
+
 ## Testing
-- Document manual and automated testing procedures.
-- Provide details on testing results and any bugs found and fixed.
+
+Manual Testing
+Test Navigation When Logged In
+Test	Expected Outcome	Result
+Click on logout button	User gets logged out and redirected to the login page.	✔
+Navigate to home page when clicking on logo or home	The home page telling a user to sign in or register is loaded	✔
+Expense tab appears	Expense tab appears when user is logged in and loads their expenses if they have any already saved as soon as they log in	✔
+Test Navigation When Not Logged In
+Test	Expected Outcome	Result
+Absence of Expense Navbar link	No expense tab can be seen as user is not logged in, however can see Register, Sign in, About and Home.	✔
+Clickable log in tab	Redirected to the login page.	✔
+Clickable register tab	Redirected to the register page.	✔
+New user signed up	New account created and redirected to the expense_tool page	✔
+New user sign up details	A new user has to input the correct criteria for username and password otherwise can't sign up.	✔
+Test Login Status
+Test	Expected Outcome	Result
+Logged in message	When the user is logged in a message on the top right just below the navbar will show as username is logged in.	✔
+Not logged in message	When the user is not logged in there will be a message just below the navbar saying "You are not logged in"	✔
+Test Adding An Expense
+Test	Expected Outcome	Result
+On clicking "Add Expense" button	Redirected to add expense page with a form displayed to enter expense details.	✔
+Filling out the expense form	The expense is added to the database successfully.	✔
+Verifying the new expense is added	The new expense is visibile in the expense list.	✔
+Filling out the expense form with invalid syntax/data	An error message is displayed indicating an invalid input.	✔
+Filling out expense with a different currency	An error message is displayed indicating the base currency chosen.	✔
+Submitting the form with incomplete or no data	An error message is displayed, indicating all fields are required	✔
+Add expense notification	After a user adds their expense, a confirmation message appears at the top of the page.	✔
+Test Edit An Expense
+Test	Expected Outcome	Result
+On clicking the "Edit" button	Redirected to edit expense page with the form displaying the existing populated expense details.	✔
+Modifying expense details	Changes are successfull saved to the database, currency value has to stay the same.	✔
+Verifying the changes	Changes are reflected in the expense list.	✔
+Submitting the form unchanged	The expense remains the same value as before.	✔
+Edit expense notification	After a user edits their expense, a confirmation message appears at the top of the page.	✔
+Test Delete An Expense
+Test	Expected Outcome	Result
+On clicking the "Delete" button	The delete Modal is pops up and is displayed.	✔
+Confirm deleting an expense	The expense is successfully deleted from the list and database.	✔
+Confirmation of the deletion	The deleted expense is no longer in the list.	✔
+Cancel delete on modal pop up	Expense remains, and is unchanged in the list and database.	✔
+On clicking the "Delete" button	The delete Modal is pops up and is displayed.	✔
+Delete expense notification	After a user deletes their expense, a confirmation message appears at the top of the page.	✔
+Testing The Admin Panel
+The admin panel is there for admins and owners of the web app to have access to the backend, access will be granted to those that have a superuser account.
+
+Test	Expected Outcome	Result
+Log in as Superuser/Admin	Displays the Django admin database panel	✔
+Add an expense	Create a new expense in the database	✔
+Edit an expense	Edit the details of an expense and save the changes.	✔
+Delete an expense	Delete the details of an expense.	✔
+
+## Validation
+
+# HTML
+
+landing-page.html
+![Guide](static/features/Testing/html-testing.png) 
+
+# CSS
+
+The Jigsaw W3C Validator was used to check the CSS stylesheet. No errors were found.
+
+## Python
+
+![Python](static/testing/views.py-validation.png)   
+
+
+## Credits 
+
+Firstly I would like to thank Code Institute for providing me with the foundational knowledge to build a project like this. My facilators and tutors at Code Institute have been brilliant so a special thanks to Lewis Dillon, David Calikes, Kevin Loughrey, Martin McInerney and Marc Briscoe. Last but not least I would like to thank my cohort peers who have helped me along with this project.
+
+I used this walk through as the starting point for my project - https://www.youtube.com/watch?v=en4fg1F1gRs&list=PLbpAWbHbi5rNUuLTzreCl1g212G7qgzpR&index=2
+
+I used ChatGPT and stack overflow and google for general guidance. 
 
 ## Deployment
-- Describe the deployment process step-by-step.
-- Include any issues encountered and how they were resolved.
+
+Deployment
+
+Deployment Guide For Penny Pinchers Expense Web App
+
+Deployment Steps:
+
+Creating The Heroku App
+
+* Sign up or log in to Heroku.
+* Go to the Heroku dashboard and click on 'New' and 'Create New App'.
+* Choose a unique name for your project e.g " Penny Pinchers".
+* If you're based in the EU region then select EU.
+* Click 'Create App'.
+* Go to the 'Deploy' tab and choose GitHub as the deployment method.
+* Connect your GitHub account and connect it with the new repository (this would have been created before these steps).
+Setting Up Environment Variables
+
+* Create an env.py in the base level directory of the Django app.
+* Import os in env.py.
+* Set up the necessary environment variables in env.py, including the SECRET_KEY and DATABASE_URL.
+* Update the settings.py file so it can use the environment variables for SECRET_KEY and DATABASE_URL.
+* Configure environment variables in Heroku under the settings tab and then go to 'Config Vars'.
+* After clicking reveal 'Config Vars' add a new record with the SECRET_KEY.
+* Do the same again as the above step but add a new record CLOUDINARY_URL.
+* Do the same step above and add a new record DISABLE_COLLECTSTATIC as the 'key' and the 'value' should be 1.
+* Migrate models onto the new database connection in the terminal.
+* Back to the settings.py file, configure static files and template directories.
+* In the ALLOWED_HOSTS list add Heroku.
+Pushing Changes and Creating A Procfile
+
+* Create a Procfile in the base level directory.
+* Add the command needed to run the project in the Procfile (web: gunicorn your_project_name.wsgi).
+* Add, Commit and Push these changes to GitHub.
+Heroku Deployment
+
+* In Heroku, find the 'deploy' tab, scroll down the page and deploy the branch.
+* Any errors that may occur will be shown in the build tab.
+* Once deployment is successful Heroku will display a link to the live site.
+* Be sure to resolve any issues/errors by editing the code as necessary.
+Final Deployment
+
+* When deploying the project be sure to have DEBUG = FALSE in settings.py
+* In heroku you can delete the 'Config Vars' for DISABLE_COLLECTSTATIC = 1.
+
 
 ## Future Features
 - Outline any features you plan to add in the future.
